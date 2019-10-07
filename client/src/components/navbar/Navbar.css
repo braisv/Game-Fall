@@ -1,0 +1,27 @@
+nav {
+	display: flex;
+	justify-content: center;
+	position: fixed;
+	width: 100vw;
+	top: 0;
+	left: 0;
+	padding: 10px 0;
+	background-color: rgba(255, 255, 255, 0.6);
+}
+
+nav-style {
+	
+}
+
+.link {
+	text-decoration: none;
+	color: rgb(52, 52, 136);
+	font-size: 1.6rem;
+	margin: 0 20px;
+}
+
+.header img {
+	width: 30px;
+	height: auto;
+	margin-right: 10px;
+}
