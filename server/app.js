@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express = require('express');
 const favicon = require('serve-favicon');
-const hbs = require('hbs');
 const mongoose = require('mongoose');
 const path = require('path');
 const session = require('express-session');
@@ -66,12 +65,14 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 
 // default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
+app.locals.title = 'Backend Games Fall';
 
 
 
 const authRouter = require('./routes/auth');
 app.use('/api/auth', authRouter);
 
+const dbRouter = require('./routes/db');
+app.use('/api/db', dbRouter);
 
 module.exports = app;

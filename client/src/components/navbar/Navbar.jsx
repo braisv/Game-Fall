@@ -1,7 +1,7 @@
 // navbar/Navbar.js
 
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from "./node_modules/react";
+import { Link } from "./node_modules/react-router-dom";
 import AuthService from "../auth/AuthService";
 import "./Navbar.css"
 
@@ -24,17 +24,23 @@ class Navbar extends Component {
   render() {
     if (this.state.loggedInUser) {
       return (
-        <nav className="nav-style flex">
+        <nav className="nav-style flex-column">
           <div className="header flex">
-            <img src='/testlogo.png' alt="" height="100"/>
-            <h2>Welcome {this.state.loggedInUser.username}</h2>
-
+              <Link className='link' to="/signup"><div className="nav-box flex home">Home</div></Link>            
+              <Link className='link' to="/signup"><div className="nav-box flex shop">Shop</div></Link>
+              <Link className='link' to="/signup"><div className="nav-box flex market">Market</div></Link>     
+              <Link className='link' to="/signup"><div className="nav-box flex aboutus">About us</div></Link>
+              <Link className='link' to="/signup"><div className="nav-box flex user">{this.state.loggedInUser.username}</div></Link>
+        
           <ul className='flex'>
             <li>
               <a className='link' href='/' onClick={this.handleLogout}>Logout</a> 
             </li>
           </ul>
           </div>
+          <form className='searchBar'>
+            <input type="search" name="search" id="search" placeholder='Search food' onChange={e => this.props.updateSearch(e)} />
+          </form>
         </nav>
       );
     } else {
@@ -49,6 +55,9 @@ class Navbar extends Component {
                 <Link className='link' to="/login">Login</Link>
               </li>
             </ul>
+            <form className='searchBar'>
+              <input type="search" name="search" id="search" placeholder='Search Game' onChange={e => this.props.updateSearch(e)} />
+            </form>
           </nav>
         </div>
       );

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { Switch, Route, Redirect } from "react-router-dom";
-import Navbar from "../navbar/Navbar";
+import Navbar from "../Navbar/Navbar";
 import Signup from "../auth/Signup";
 import Login from "../auth/Login";
 import AuthService from "../auth/AuthService";
