@@ -1,34 +1,33 @@
 const mongoose = require('mongoose');
-const Schema   = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  profile: {
-    username: {
-      type: String,
-      unique: true
-    },
-    password: String,
+  username: {
+    type: String,
+    unique: true
+  },
+  password: String,
+  name: String,
+  surname: String,
+  googleId: String,
+  token: {
+    type: String,
+    unique: true
+  },
+  role: {
+    type: String,
+    enum: ["USER", "ADMIN"],
+    default: "USER"
+  },
+  // status: {
+  //type: String,
+  //enum: ["ACTIVE", "PENDING", "FROZEN"],
+  //default: "PENDING"
+  // },
+  image: {
+    path: String,
     name: String,
-    surname: String,
-    googleId: String,
-    token: {
-      type: String,
-      unique: true
-    },
-    role: {
-      type: String,
-      enum: ["USER", "ADMIN"],
-      default: "USER"
-    },
-    // status: {
-    //   type: String,
-    //   enum: ["ACTIVE", "PENDING", "FROZEN"],
-    //   default: "PENDING"
-    // },
-    image: {
-      path: String,
-      name: String,
-    }
+
   },
   contact: {
     email: {

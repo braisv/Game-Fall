@@ -6,13 +6,13 @@ import Signup from "../auth/Signup";
 import Login from "../auth/Login";
 import AuthService from "../auth/AuthService";
 import Main from "../Main/Main";
+import NewGame from "../NewGame/NewGame"
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = { loggedInUser: null };
     this.service = new AuthService();
-
     this.fetchUser()
   }
 
@@ -43,6 +43,16 @@ class App extends Component {
       });
   }
 
+  // componentDidMount(){
+  //   this.getGame()
+  // }
+
+  // async getGame() {
+  //   let games = await this.serviceAxios.getGame();
+  //   console.log(games)
+  // }
+
+
   render() {
     if (this.state.loggedInUser) {
       return (
@@ -52,9 +62,12 @@ class App extends Component {
           <div className="App flex">
             <header className="App-header">
               <Navbar userInSession={this.state.loggedInUser} logout={this.logout} />
-              <Main />
             </header>
           </div>
+          <Switch>
+          <Route exact path="/home" component={Main} />
+          <Route exact path="/addgame" component={NewGame} />
+        </Switch>
         </React.Fragment>
       );
     } else {
@@ -76,5 +89,3 @@ class App extends Component {
     }
   }
 }
-
-export default App;

@@ -6,30 +6,30 @@ const gameSchema = new Schema({
   platform: String,
   release: String,
   genre: [],
-  score: Number,
+  // score: Number,
   image: String,
   description: String,
-  developer: String,
-  publisher: [],
-  rating: String,
-  price: {
-    amount: Number,
-    discountInfo: {
-       discount: Number,
-       dateFrom: Date,
-       dateTo: Date
-    },
-    taxes: Number
-  },
-  category: {
-    type: String,
-    enum: ["New", "On sale", "Recommended"]
-  },
-  stock: {
-    quantity: Number,
-    minQuantity: Number,
-    releaseDate: Date
-  }
+  // developer: String,
+  // publisher: [],
+  // rating: String,
+  // price: {
+  //   amount: Number,
+  //   discountInfo: {
+  //      discount: Number,
+  //      dateFrom: Date,
+  //      dateTo: Date
+  //   },
+  //   taxes: Number
+  // },
+  // category: {
+  //   type: String,
+  //   enum: ["New", "On sale", "Recommended"]
+  // },
+  // stock: {
+  //   quantity: Number,
+  //   minQuantity: Number,
+  //   releaseDate: Date
+  // }
 }, {
   timestamps: {
     createdAt: 'created_at',

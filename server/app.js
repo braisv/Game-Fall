@@ -75,4 +75,7 @@ app.use('/api/auth', authRouter);
 const dbRouter = require('./routes/db');
 app.use('/api/db', dbRouter);
 
+const gameRouter = require('./routes/games');
+app.use('/', gameRouter);
+
 module.exports = app;

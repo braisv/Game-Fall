@@ -1,7 +1,7 @@
 // auth/auth-service.js
 import axios from 'axios';
 
-class AuthService {
+export default class AuthService {
   constructor() {
     this.service = axios.create({
       baseURL: 'http://localhost:5000/api/auth',
@@ -20,7 +20,7 @@ class AuthService {
   }
 
   loggedin = () => {
-    return this.service.get('/currentUser',)
+    return this.service.get('/currentuser',)
     .then(response => response.data)
   }
 
@@ -29,5 +29,3 @@ class AuthService {
     .then(response => response.data)
   }
 }
-
-export default AuthService;

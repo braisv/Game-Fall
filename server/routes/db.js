@@ -10,10 +10,9 @@ dbRouter.get('/game/:id', (req,res,next) => {
 })
 
 dbRouter.get('/search', (req, res, next) => {
-  const {query} = req.body;
+  const {query} = req.query;
   dbAPI.getName(query)
     .then(games => {
-      console.log(games)
       res.json(games)
     })
 })
@@ -67,8 +66,9 @@ dbRouter.get('/similars/:id', (req,res,next) => {
 })
 
 
-dbRouter.get('/try', (req, res, next) => {
-  dbAPI.getGame(116681)
+dbRouter.get('/try/:query', (req, res, next) => {
+  const name = req.params.query
+  dbAPI.getName(name)
   .then( game => res.json(game))
 })
 

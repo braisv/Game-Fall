@@ -1,14 +1,17 @@
 // navbar/Navbar.js
 
-import React, { Component } from "./node_modules/react";
-import { Link } from "./node_modules/react-router-dom";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import AuthService from "../auth/AuthService";
 import "./Navbar.css"
 
-class Navbar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { loggedInUser: null };
+export default class Navbar extends Component {
+  constructor() {
+    super();
+    this.state = {
+      loggedInUser: null,
+    };
+
     this.service = new AuthService();
   }
 
@@ -26,9 +29,9 @@ class Navbar extends Component {
       return (
         <nav className="nav-style flex-column">
           <div className="header flex">
-              <Link className='link' to="/signup"><div className="nav-box flex home">Home</div></Link>            
+              <Link className='link' to="/home"><div className="nav-box flex home">Home</div></Link>            
               <Link className='link' to="/signup"><div className="nav-box flex shop">Shop</div></Link>
-              <Link className='link' to="/signup"><div className="nav-box flex market">Market</div></Link>     
+              <Link className='link' to="/addgame"><div className="nav-box flex market">Market</div></Link>     
               <Link className='link' to="/signup"><div className="nav-box flex aboutus">About us</div></Link>
               <Link className='link' to="/signup"><div className="nav-box flex user">{this.state.loggedInUser.username}</div></Link>
         
@@ -38,11 +41,8 @@ class Navbar extends Component {
             </li>
           </ul>
           </div>
-          <form className='searchBar'>
-            <input type="search" name="search" id="search" placeholder='Search food' onChange={e => this.props.updateSearch(e)} />
-          </form>
         </nav>
-      );
+      )
     } else {
       return (
         <div>
@@ -56,7 +56,7 @@ class Navbar extends Component {
               </li>
             </ul>
             <form className='searchBar'>
-              <input type="search" name="search" id="search" placeholder='Search Game' onChange={e => this.props.updateSearch(e)} />
+              <input type="search" name="search" id="search" placeholder='Search Game' onChange={e => this.updateSearch(e)} />
             </form>
           </nav>
         </div>
@@ -64,5 +64,3 @@ class Navbar extends Component {
     }
   }
 }
-
-export default Navbar;

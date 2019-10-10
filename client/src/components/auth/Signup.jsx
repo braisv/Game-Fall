@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AuthService from './AuthService'
 
 
-class Signup extends Component {
+export default class Signup extends Component {
   constructor(props){
     super(props);
     this.state = { username: '', password: '' };
@@ -62,5 +62,3 @@ class Signup extends Component {
     )
   }
 }
-
-export default Signup;
