@@ -114,7 +114,7 @@ class APIHandler {
         },
         data: `fields *; where id = (${screenshotIDs});`
       })
-      finalGame.screenshots = game.data.map(x => x.url)
+      finalGame.screenshots = game.data.map(x => x.url.substr(44))
     }
 
     if (!!finalGame.collection) {
@@ -142,7 +142,7 @@ class APIHandler {
         },
         data: `fields *; where id = (${coverIDs});`
       })
-      finalGame.cover = game.data.map(x => x.url)
+      finalGame.cover = game.data.map(x => x.url.substr(44))
     }
 
     if (!!finalGame.franchise) {
@@ -216,6 +216,9 @@ class APIHandler {
     })
     let finalGame = response.data[0]
 
+    let newDate = new Date(finalGame.first_release_date * 1000)
+    finalGame.first_release_date = newDate.getDate() + '/' + (newDate.getMonth() + 1) + '/' + newDate.getFullYear()
+
     let genreIDs = finalGame.genres.toString()
     response = await axios({
       url: "https://api-v3.igdb.com/genres",
@@ -278,7 +281,7 @@ class APIHandler {
       },
       data: `fields *; where id = (${screenshotIDs});`
     })
-    finalGame.screenshots = response.data.map(x => x.url)
+    finalGame.screenshots = response.data.map(x => x.url.substr(44))
     return finalGame
   }
 
@@ -330,7 +333,7 @@ class APIHandler {
       },
       data: `fields *; where id = (${coverIDs});`
     })
-    finalGame.cover = response.data.map(x => x.url)
+    finalGame.cover = response.data.map(x => x.url.substr(44))
     return finalGame
   }
 

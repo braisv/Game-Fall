@@ -2,46 +2,45 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+.containerCard img {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .gameCard {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 150px;
   height: 300px;
   margin: 1vw;
-  padding: 1vw;
-  background: linear-gradient(344deg, rgba(83, 28, 119, 0.644) 31%, rgba(232, 137, 235, 0.493) 100%);
+  background: linear-gradient(
+    344deg,
+    rgba(83, 28, 119, 0.644) 31%,
+    rgba(232, 137, 235, 0.493) 100%
+  );
   box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.363);
-}
-
-.gameCardSmall {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 150px;
-  height: 100px;
-  margin: 1vw;
-  padding: 1vw;
-  background: linear-gradient(344deg, rgba(83, 28, 119, 0.644) 31%, rgba(232, 137, 235, 0.493) 100%);
-  box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.363);
-}
-
-.gameCardSmall h1 {
-  font-size: 1.4rem;
-  text-decoration: none;
 }
 
 .linked {
   text-decoration: none;
 }
 
-.gameCard h1 {
-  font-size: 2rem;
+.description-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  width: 85%;
+  margin-top: 5px;
 }
 
-.searchResults {
-  overflow-x: scroll;
+.gameCard h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin: auto 0;
 }

@@ -9,7 +9,7 @@
 
 body {
   margin: 0;
-  padding-top: 25vh;
+  padding-top: 100px;
   color: whitesmoke;
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -17,3 +17,11 @@ body {
   background-color: #5482dd;
 }
 
+button {
+  background-color: rgb(56, 184, 98);
+  font-size: 1.4rem;
+  border-radius: 2px;
+  border: none;
+  color: whitesmoke;
+  font-weight: bold;
+}

@@ -7,3 +7,31 @@ input {
 button {
   padding: 10px 20px;
 }
+
+.gameCardSmall {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 100px;
+  margin: 1vw;
+  padding: 1vw;
+  background: linear-gradient(344deg, rgba(83, 28, 119, 0.644) 31%, rgba(232, 137, 235, 0.493) 100%);
+  box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.363);
+}
+
+.gameCardSmall h1 {
+  font-size: 1.4rem;
+  text-decoration: none;
+}
+
+.flex-column {
+  justify-content: center;
+  align-items: center;
+}
+
+.searchResults {
+  width: 80vw;
+  overflow-x: scroll;
+  justify-content: flex-start;
+}
