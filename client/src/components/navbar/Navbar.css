@@ -17,7 +17,9 @@ nav {
 	top: 0;
 	left: 0;
 	padding: 10px 0;
-	background-color: rgba(255, 255, 255, 0.6);
+	background-color: rgba(255, 255, 255, 0.8);
+	box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.4);
+	z-index: 1;
 }
 
 
@@ -84,6 +86,17 @@ nav {
 .nav-style .user {
 	background-image: url('/images/navbar/user.png');
 }
+
+.nav-style .signup {
+	background-color: rgb(220, 230, 90);
+	background-image: url('/images/navbar/signup.png');
+}
+
+.nav-style .login {
+	background-color: rgb(90, 179, 230);
+	background-image: url('/images/navbar/login.png');
+}
+
 
 .searchBar {
 	margin: 10px;

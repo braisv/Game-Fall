@@ -7,6 +7,7 @@ import Login from "../auth/Login";
 import AuthService from "../auth/AuthService";
 import Main from "../Main/Main";
 import NewGame from "../NewGame/NewGame"
+import GameCard from "../GameCard/GameCard";
 
 export default class App extends Component {
   constructor(props) {
@@ -67,6 +68,10 @@ export default class App extends Component {
           <Switch>
           <Route exact path="/home" component={Main} />
           <Route exact path="/addgame" component={NewGame} />
+          <Route exact path="/game/:id" render={(props) => {
+            return <GameCard userInSession={this.state.loggedInUser} gameID={props.match.params.id} />}
+          } />
+          {/* <Route exact path="/test" component={Appoteosis} /> */}
         </Switch>
         </React.Fragment>
       );
@@ -81,6 +86,7 @@ export default class App extends Component {
               <Switch>
                 <Route exact path="/signup" render={() => <Signup getUser={this.getUser} />} />
                 <Route exact path="/login" render={() => <Login getUser={this.getUser} />} />
+                {/* <Route exact path="/test" component={Appoteosis} /> */}
               </Switch>
             </header>
           </div>

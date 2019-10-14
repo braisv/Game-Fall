@@ -9,8 +9,8 @@
 
 body {
   margin: 0;
-  padding-top: 100px;
-  color: whitesmoke;
+  padding: 100px 0;
+  color: rgb(126, 154, 186);
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -24,4 +24,5 @@ button {
   border: none;
   color: whitesmoke;
   font-weight: bold;
+  padding: 10px 20px;
 }

@@ -9,35 +9,19 @@ const selectionObject = {
   genre: true,
   image: true,
   description: true,
-  // developer: "",
-  // publisher: [],
-  // rating: "",
-  // price: {
-  //   amount: null,
-  //   discountInfo: {
-  //     discount: null,
-  //     dateFrom: Date,
-  //     dateTo: Date
-  //   },
-  //   taxes: null
-  // },
-  // category: {
-  //   type: "",
-  //   enum: ["New", "On sale", "Recommended"]
-  // },
-  // stock: {
-  //   quantity: null,
-  //   minQuantity: null,
-  //   releaseDate: Date
-
-  // }
+  companies: true,
+  screenshots: true,
+  similars: true,
+  price: true,
+  category: true,
+  stock: true
 }
 
 
 gameRouter.post('/new', (req, res, next) => {
-  const { name, platform, release, genre, image, description } = req.body;
+  const { name, platform, release, genre, image, description, companies, screenshots, similars, category, stock, price } = req.body;
   Game
-    .create({ name, platform, release, genre, image, description })
+    .create({ name, platform, release, genre, image, description, companies, screenshots, similars, category, stock, price })
     .then((newGame) => {
       Game
         .findById(newGame._id)
@@ -51,6 +35,14 @@ gameRouter.get('/games', (req, res, next) => {
     .find()
     .select(selectionObject)
     .then(allTheGames => res.json(allTheGames))
+});
+
+gameRouter.get('/game/:id', (req, res, next) => {
+  const gameID = req.params.id
+  Game
+    .findById(gameID)
+    .select(selectionObject)
+    .then(game => res.json(game))
 });
 
 

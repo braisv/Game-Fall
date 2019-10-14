@@ -19,28 +19,16 @@ const userSchema = new Schema({
     enum: ["USER", "ADMIN"],
     default: "USER"
   },
-  // status: {
-  //type: String,
-  //enum: ["ACTIVE", "PENDING", "FROZEN"],
-  //default: "PENDING"
-  // },
-  image: {
-    path: String,
-    name: String,
-
-  },
-  contact: {
-    email: {
+  image: String,
+  email: {
       type: String,
       unique: true
     },
-    phone: {
-      type: String
-    }
-  },
+  phone: String,
+
   address: {
     name: String,
-    address: String,
+    street: String,
     buildingNumber: Number,
     floor: Number,
     zipCode: Number,
@@ -57,7 +45,7 @@ const userSchema = new Schema({
   }],
   wishlist: [{
     type: Schema.Types.ObjectId,
-    ref: "Products"
+    ref: "Game"
   }],
 }, {
   timestamps: true,

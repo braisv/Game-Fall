@@ -14,23 +14,12 @@ const gameSchema = new Schema({
   companies: [],
   screenshots: [],
   similars: [],
-  price: {
-    amount: "",
-    discountInfo: {
-      discount: "",
-      dateFrom: Date,
-      dateTo: Date
-    },
-    taxes: ""
-  },
+  price: "",
   category: {
     type: "",
     enum: ["New", "On sale", "Recommended"]
   },
-  stock: {
-    quantity: "",
-    minQuantity: ""
-  }
+  stock: "",
 }, {
   timestamps: {
     createdAt: 'created_at',

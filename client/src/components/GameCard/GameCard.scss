@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+$font: 'Lato', sans-serif;
+
+$white: #F5F5F5;
+$light: rgb(201, 210, 224);
+$tan: rgb(160, 179, 195);
+$pink: rgb(170, 198, 217);
+$rose: rgb(126, 154, 186);
+$dark: rgb(78, 78, 78);
+
+/* center container in the middle */
+
+.container-card {
+  position: relative;
+  margin: auto;
+  margin-top: 50px;
+  overflow: hidden;
+  width: 70vw;
+  height: 70vh;
+  background: $white;
+  box-shadow: 5px 5px 15px rgba($rose, .5);
+  border-radius: 10px;
+}
+
+.container-card p {
+  font-size: 1.6em;
+  color: $rose;
+  letter-spacing: 1px;
+}
+
+.container-card h1 {
+  font-size: 2.2em;
+  color: $dark;
+  margin: 5px 0;
+}
+
+.container-card h2 {
+  color: $tan;
+  font-size: 1.8em;
+  margin: 5px 0;
+}
+
+.container-card img {
+  max-width: 40%;
+  max-height: 50vh;
+  margin-top: 47px;
+}
+
+.container-card .images {
+  margin: 0 50px;
+}
+
+.container-card .product {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  top: 10%;
+  left: 45%;
+}
+
+.container-card .desc {
+  text-transform: none;
+  letter-spacing: 0;
+  margin-bottom: 17px;
+  color: $dark;
+  font-size: 1.7em;
+  line-height: 1.2em;
+  margin-right: 25px;
+  text-align: justify;
+}
+
+.container-card button {
+  padding: 10px;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  margin: -1px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $white;
+  cursor: pointer;
+  &:hover {
+    background: $rose;
+    transition: all .4s ease-in-out;
+  }
+}
+
+.add {
+  background: darken($light, 10%);
+}
+
+.is-wish {
+  background: $rose;
+}
+
+.is-blue {
+  background: darken($light, 10%);
+}
+
+.container-card .add {
+  width: 67%;
+}
+
+.container-card .like {
+  width: 22%;
+}
+
+.container-card .sizes {
+  display: grid;
+  color: $pink;
+  grid-template-columns: repeat(auto-fill, 30px);
+  width: 60%;
+  grid-gap: 4px;
+  margin-left: 50px;
+  margin-top: 5px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.container-card .pick {
+  margin-top: 11px;
+  margin-bottom:0;
+  margin-left: 50px;
+}
+
+.container-card .size {
+  padding: 9px;
+  border: 1px solid $light;
+  font-size: 0.7em;
+  text-align: center;
+  &:hover{
+    background: $rose;
+    color: $white;
+    transition: all .4s ease-in-out;
+  }
+}
+
+.container-card .focus{
+  background: $rose;
+  color: $white;
+}
+
+.game-info {
+  max-height: 65%;
+  overflow-y: scroll;
+  margin-bottom: 20px;
+}
+
+.size img {
+  position: absolute;
+  width: 0;
+  bottom: 100px;
+  outline: 10px solid #5482dd;
+  box-shadow: 0 0 120px black;
+  z-index: 1;
+  margin-left: -20px;
+  opacity: 0;
+  transition: width 0.2s ease-in;
+}
+
+.size:hover img {
+  opacity: 1;
+  width: 100%;
+  transition: width 0.2s ease-in-out;
+}
+
+#price {
+  display: inline;
+  background: $tan;
+  color: $white;
+  padding: 5px 10px;
+  border-radius: 8px;
+}

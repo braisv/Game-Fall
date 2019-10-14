@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import { withRouter } from "react-router-dom";
 import axios from 'axios'
 import './NewGame.css'
 import GameService from '../../utils/GameService'
 import './NewGame.css'
 
-export default class NewGame extends Component {
+class NewGame extends Component {
   constructor() {
     super()
     this.service = new GameService();
@@ -15,35 +16,28 @@ export default class NewGame extends Component {
       name: "",
       platform: [],
       release: "",
-      genre: [],
-      image: [],
+      genre: "",
+      image: "",
       description: "",
-      companies: [],
+      companies: "",
       screenshots: [],
-      similars: [],
-      price: {
-        amount: "",
-        discountInfo: {
-          discount: "",
-          dateFrom: Date,
-          dateTo: Date
-        },
-        taxes: ""
-      },
-      category: {
-        type: "",
-        enum: ["New", "On sale", "Recommended"]
-      },
-      stock: {
-        quantity: "",
-        minQuantity: ""
-      }
+      similars: "",
+      price: "",
+      category: '',
+      stock: ""
     }
   }
 
   handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(e.target)
     this.setState({ [name]: value });
+  }
+
+  handleChangeSelect(e) {
+    this.setState({
+      platform: [e.target.value]
+    })
   }
 
   handleChangeForArray = (e, idx) => {
@@ -56,65 +50,28 @@ export default class NewGame extends Component {
     });
   }
 
-  handleFormSubmit = (event) => {
-    event.preventDefault();
+  handleFormSubmit = (e) => {
+    e.preventDefault();
 
-    let { name, platform, release, genre, image, description, companies, screenshots, similars } = this.state
+    let { name, platform, release, genre, image, description, companies, screenshots, similars, category, stock, price } = this.state
 
-    let price = {
-      amount: this.state.price.amount,
-      // discountInfo: {
-      //   discount: this.state.price.discountInfo.discount,
-      //   dateFrom: this.state.price.discountInfo.dateFrom,
-      //   dateTo: this.state.price.discountInfo.dateTo
-      // },
-      // taxes: this.state.price.taxes
-    }
-
-    let category = {
-      type: this.state.category,
-      // minQuantity: this.state.category.minQuantity,
-      // releaseDate: this.state.category.releaseDate
-    }
-
-    let stock = {
-      quantity: this.state.stock.quantity,
-      // minQuantity: this.state.stock.minQuantity
-    }
-
-
-    axios.post(`http://localhost:5000/new`, { name, platform, release, genre, image, description, companies, screenshots, similars, price, category, stock })
+    axios.post(`http://localhost:5000/new`, { name, platform, release, genre, image, description, companies, screenshots, similars, category, stock, price })
       .then(() => {
         this.setState({
           name: "",
           platform: [],
           release: "",
-          genre: [],
-          image: [],
+          genre: "",
+          image: "",
           description: "",
-          companies: [],
+          companies: "",
           screenshots: [],
-          similars: [],
-          price: {
-            amount: "",
-            discountInfo: {
-              discount: "",
-              dateFrom: Date,
-              dateTo: Date
-            },
-            taxes: ""
-          },
-          category: {
-            type: "",
-            enum: ["New", "On sale", "Recommended"]
-          },
-          stock: {
-            quantity: "",
-            minQuantity: "",
-            releaseDate: Date
-
-          }
+          similars: "",
+          price: "",
+          category: "",
+          stock: "",
         });
+        this.props.history.push('/home');
       })
       .catch(error => console.log(error))
   }
@@ -199,7 +156,7 @@ export default class NewGame extends Component {
         });
       })
 
-      this.service.screenshots(id)
+    this.service.screenshots(id)
       .then(response => {
         this.setState({
           ...this.state,
@@ -213,7 +170,7 @@ export default class NewGame extends Component {
         });
       })
 
-      this.service.companies(id)
+    this.service.companies(id)
       .then(response => {
         this.setState({
           ...this.state,
@@ -227,7 +184,7 @@ export default class NewGame extends Component {
         });
       })
 
-      this.service.similars(id)
+    this.service.similars(id)
       .then(response => {
         this.setState({
           ...this.state,
@@ -243,9 +200,16 @@ export default class NewGame extends Component {
   }
 
   render() {
+
+    let img
+    if (!!this.state.image) {
+      img = `https://images.igdb.com/igdb/image/upload/t_cover_small_2x/${this.state.image}`
+    } else {
+      img = '#'
+    }
+
     return (
       <div className='form-section flex-column'>
-        {this.state.selectedGame}
         <form onSubmit={this.searchFormSubmit} className='searchBar'>
           <input type="search" name="search" id="search" placeholder='Search game' value={this.state.search} onChange={e => this.updateSearch(e)} />
         </form>
@@ -268,182 +232,155 @@ export default class NewGame extends Component {
           ))}
         </div>
         <form onSubmit={this.handleFormSubmit}>
-          <input
-            id="inputName"
-            type="text"
-            label="Name"
-            onChange={e => this.handleChange(e)}
-            name='name'
-            placeholder='Name of the Game'
-            value={this.state.name}
-          />
-          <input
-            id="inputCompanies"
-            type="text"
-            label="Companies"
-            onChange={e => this.handleChange(e)}
-            name='companies'
-            placeholder='Companies'
-            value={this.state.companies[0]}
-          />
-          <input
-            id="inputCompanies"
-            type="text"
-            label="Companies"
-            onChange={e => this.handleChange(e)}
-            name='companies'
-            placeholder='Companies'
-            value={this.state.companies[1]}
-          />
-          <input
-            id="inputCompanies"
-            type="text"
-            label="Companies"
-            onChange={e => this.handleChange(e)}
-            name='companies'
-            placeholder='Companies'
-            value={this.state.companies[2]}
-          />
-          <input
-            id="inputRelease"
-            type="text"
-            label="Release"
-            onChange={e => this.handleChange(e)}
-            name='release'
-            placeholder='Release date'
-            value={this.state.release}
-          />
-          <input
-            id="inputGenre"
-            type="text"
-            label="Genre"
-            onChange={e => this.handleChange(e)}
-            name='genre'
-            placeholder='Genre'
-            value={this.state.genre}
-          />
-          <select onChange={e => this.handleChange(e)}>
-            {this.state.platform.map(plat => (
-              <option value={plat}>{plat}</option>
-            ))}
-          </select>
-          <input
-            id="inputImage"
-            type="text"
-            label="Image"
-            onChange={e => this.handleChange(e)}
-            name='image'
-            placeholder='Image URL'
-            value={this.state.image}
-          />
-          <input
-            id="inputDescription"
-            type="text"
-            label="Description"
-            onChange={e => this.handleChange(e)}
-            name='description'
-            placeholder='Summary'
-            value={this.state.description}
-          />
-          <input
-            id="inputSimilars1"
-            type="text"
-            label="Similar Games"
-            onChange={e => this.handleChange(e)}
-            name='similars'
-            placeholder='Similar Games'
-            value={this.state.similars[0]}
-          />
-          <input
-            id="inputSimilars2"
-            type="text"
-            label="Similar Games"
-            onChange={e => this.handleChange(e)}
-            name='similars'
-            placeholder='Similar Games'
-            value={this.state.similars[1]}
-          />
-          <input
-            id="inputSimilars3"
-            type="text"
-            label="Similar Games"
-            onChange={e => this.handleChange(e)}
-            name='similars'
-            placeholder='Similar Games'
-            value={this.state.similars[2]}
-          />
-          <input
-            id="inputScreenshots1"
-            type="text"
-            label="Screenshots"
-            onChange={e => this.handleChange(e)}
-            name='screenshots'
-            placeholder='Screenshot'
-            value={this.state.screenshots[0]}
-          />
-          <input
-            id="inputScreenshots2"
-            type="text"
-            label="Screenshots"
-            onChange={e => this.handleChange(e)}
-            name='screenshots'
-            placeholder='Screenshot'
-            value={this.state.screenshots[1]}
-          />
-          <input
-            id="inputScreenshots3"
-            type="text"
-            label="Screenshots"
-            onChange={e => this.handleChange(e)}
-            name='screenshots'
-            placeholder='Screenshot'
-            value={this.state.screenshots[2]}
-          />
 
-          <input
-            id="inputScreenshots4"
-            type="text"
-            label="Screenshots"
-            onChange={e => this.handleChange(e)}
-            name='screenshots'
-            placeholder='Screenshot'
-            value={this.state.screenshots[3]}
-          />
-          <input
-            id="inputScreenshots5"
-            type="text"
-            label="Screenshots"
-            onChange={e => this.handleChange(e)}
-            name='screenshots'
-            placeholder='Screenshot'
-            value={this.state.screenshots[4]}
-          />
-          <input
-            id="inputPrice"
-            type="number"
-            label="Price"
-            onChange={e => this.handleChange(e)}
-            name='price'
-            placeholder='...$'
-            value={this.state.price.amount}
-          />
-          <input
-            id="inputQuantity"
-            type="number"
-            label="Quantity"
-            onChange={e => this.handleChange(e)}
-            name='quantity'
-            placeholder='Units'
-            value={this.state.stock.quantity}
-          />
-          <select onChange={e => this.handleChange(e)}>
-            <option value='On Sale'>On Sale</option>
-            <option value='Recommended'>Recommended</option>
-            <option value='New'>New</option>
-          </select>
-          <button type="submit" value="Submit" >Submit</button>
+          <div className="parent">
+            <div className="div1 flex-column">
+              <label for='name'>Name:</label>
+              <input
+                id="inputName"
+                type="text"
+                label="Name"
+                onChange={e => this.handleChange(e)}
+                name='name'
+                placeholder='Name of the Game'
+                value={this.state.name}
+              />
+            </div>
+            <div className="div2 flex-column">
+              <label for='image'>Image:</label>
+              <input
+                id="inputImage"
+                type="text"
+                label="Image"
+                onChange={e => this.handleChange(e)}
+                name='image'
+                placeholder='Image URL'
+                value={this.state.image}
+              />
+
+              <img src={img} alt="Cover game" />
+            </div>
+            <div className="div3 flex-column">
+              <label>Platform:</label>
+              <select onChange={this.handleChangeSelect.bind(this)} >
+                {this.state.platform.map(plat => (
+                  <option value={plat}>{plat}</option>
+                ))}
+              </select>
+            </div>
+            <div className="div4 flex-column">
+              <label for='genre'>Genre:</label>
+              <input
+                id="inputGenre"
+                type="text"
+                label="Genre"
+                onChange={e => this.handleChange(e)}
+                name='genre'
+                placeholder='Genre URL'
+                value={this.state.genre}
+              />
+            </div>
+            <div className="div5 flex-column">
+              <label for='release'>Release date:</label>
+              <input
+                id="inputRelease"
+                type="text"
+                label="Release"
+                onChange={e => this.handleChange(e)}
+                name='release'
+                placeholder='Release date'
+                value={this.state.release}
+              />
+            </div>
+            <div className="div6 flex-column">
+              <label for='summary'>Summary:</label>
+              <textarea
+                id="inputDescription"
+                type="text"
+                label="Description"
+                onChange={e => this.handleChange(e)}
+                name='description'
+                placeholder='Summary'
+                value={this.state.description}
+              />
+            </div>
+            <div className="div7 flex-column">
+              <input
+                id="inputCompanies"
+                type="text"
+                label="Companies"
+                onChange={e => this.handleChange(e)}
+                name='companies'
+                placeholder='Companies'
+                value={this.state.companies}
+              />
+            </div>
+            <div className="div8 flex-column">
+              <label for='similars'>Similar games:</label>
+              <input
+                id="inputSimilars1"
+                type="text"
+                label="Similar Games"
+                onChange={e => this.handleChange(e)}
+                name='similars'
+                placeholder='Similar Games'
+                value={this.state.similars}
+              />
+            </div>
+            <div className="div9 flex-column">
+              <label for='screenshots'>Screenshots:</label>
+              <input
+                id="inputScreenshots1"
+                type="text"
+                label="Screenshots"
+                onChange={e => this.handleChange(e)}
+                name='screenshots'
+                placeholder='Screenshot'
+                value={this.state.screenshots}
+              />
+            </div>
+            <div className="div10 flex-column">
+              <label>Category:</label>
+              <select onChange={e => this.handleChange(e)}>
+                <option value='On Sale'>On Sale</option>
+                <option value='Recommended'>Recommended</option>
+                <option value='New'>New</option>
+              </select>
+            </div>
+            <div className="div11 flex-column">
+              <label for='stock'>Stock:</label>
+              <input
+                id="inputStock"
+                type="number"
+                label="Stock"
+                onChange={e => this.handleChange(e)}
+                name='stock'
+                placeholder='Units'
+                value={this.state.stock}
+              />
+            </div>
+            <div className="div12 flex-column">
+              <label for='price'>Price:</label>
+              <input
+                id="inputPrice"
+                type="number"
+                label="Price"
+                onChange={e => this.handleChange(e)}
+                name='price'
+                placeholder='...$'
+                value={this.state.price}
+              />
+            </div>
+            <div className="div13 flex-column"> </div>
+            <div className="div14 flex-column">
+              <button type="submit" value="Submit" >Submit</button>
+            </div>
+          </div>
         </form>
       </div>
     )
   }
 }
+
+
+export default withRouter(NewGame);

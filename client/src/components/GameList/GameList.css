@@ -10,13 +10,19 @@
   max-height: 100%;
 }
 
+.containerCard img:hover {
+  max-width: 100%;
+  max-height: 100%;
+  filter: brightness(20%);
+}
+
 .gameCard {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 150px;
-  height: 300px;
+  width: auto;
+  height: 250px;
   margin: 1vw;
   background: linear-gradient(
     344deg,
@@ -32,15 +38,103 @@
 
 .description-section {
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
-  height: 70px;
-  width: 85%;
-  margin-top: 5px;
+  height: 100%;
+  width: 70%;
+  top: -125px;
 }
 
 .gameCard h1 {
   text-align: center;
   font-size: 2rem;
   margin: auto 0;
+}
+
+
+
+
+
+
+.gameList {
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 80vw;
+}
+
+.container {
+  margin: 40px;
+  left: calc(50% - 300px);
+  display: flex;
+
+}
+
+.card {
+  display: flex;
+  height: 250px;
+  width: auto;
+  background-color: #17141d;
+  border-radius: 10px;
+  box-shadow: -1rem 0 3rem #000;
+  margin-left: -50px;
+  transition: 0.4s ease-out;
+  position: relative;
+  left: 0px;
+  filter: brightness(100%);
+
+}
+
+.card:not(:first-child) {
+    margin-left: -50px;
+}
+
+.card:hover {
+  transform: translateY(-20px);
+  transition: 0.4s ease-out;
+  filter: brightness(20%);
+}
+
+.card:hover ~ .card {
+  position: relative;
+  left: 50px;
+  transition: 0.4s ease-out;
+}
+
+.container img {
+  border-radius: 10px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.text-img {
+  display: flex;
+  height: 250px;
+  width: 90px;
+  margin-left: -50px;
+  transition: 0.4s ease-out;
+  position: relative;
+  top: -175px;
+  left: 0px;
+  opacity: 0;
+}
+
+.text-img h3 {
+  font-size: 1.4rem;
+}
+
+.text-img:not(:first-child) {
+    margin-left: -40px;
+}
+
+.card:hover .text-img {
+  transform: translateY(-20px);
+  transition: 0.4s ease-out;
+}
+
+.card:hover ~ .text-img {
+  opacity: 1;
+  position: relative;
+  left: 0px;
+  transition: 0.4s ease-out;
 }

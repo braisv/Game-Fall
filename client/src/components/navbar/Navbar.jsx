@@ -31,8 +31,8 @@ export default class Navbar extends Component {
           <div className="header flex">
               <Link className='link' to="/home"><div className="nav-box flex home">Home</div></Link>            
               <Link className='link' to="/signup"><div className="nav-box flex shop">Shop</div></Link>
-              <Link className='link' to="/addgame"><div className="nav-box flex market">Market</div></Link>     
-              <Link className='link' to="/signup"><div className="nav-box flex aboutus">About us</div></Link>
+              {/* <Link className='link' to="/addgame"><div className="nav-box flex market">Market</div></Link>      */}
+              <Link className='link' to="/test"><div className="nav-box flex aboutus">About us</div></Link>
               <Link className='link' to="/signup"><div className="nav-box flex user">{this.state.loggedInUser.username}</div></Link>
         
           <ul className='flex'>
@@ -49,15 +49,12 @@ export default class Navbar extends Component {
           <nav className="nav-style">
             <ul className='flex'>
               <li>
-                <Link className='link' to="/signup">Signup</Link>
+                <Link className='link' to="/signup"><div className="nav-box flex signup">Sign Up</div></Link>
               </li>
               <li>
-                <Link className='link' to="/login">Login</Link>
+                <Link className='link' to="/login"><div className="nav-box flex login">Log in</div></Link>
               </li>
             </ul>
-            <form className='searchBar'>
-              <input type="search" name="search" id="search" placeholder='Search Game' onChange={e => this.updateSearch(e)} />
-            </form>
           </nav>
         </div>
       );

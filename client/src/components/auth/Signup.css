@@ -1,0 +1,28 @@
+.container-card {
+  position: relative;
+  margin: auto;
+  margin-top: 50px;
+  overflow: hidden;
+  width: 70vw;
+  height: 70vh;
+  background: #F5F5F5;
+  box-shadow: 5px 5px 15px rgba(126, 154, 186, .5);
+  border-radius: 10px;
+  color: rgb(126, 154, 186);
+}
+
+.container-card h3 {
+  color: rgb(126, 154, 186);
+}
+
+.signup-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.signup-form input {
+  margin: 10px;
+}
