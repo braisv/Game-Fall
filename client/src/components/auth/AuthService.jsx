@@ -4,12 +4,14 @@ import axios from 'axios';
 export default class AuthService {
   constructor() {
     this.service = axios.create({
-      baseURL: 'http://localhost:5000/api/auth',
+      baseURL: `${process.env.REACT_APP_API_URL}/api/auth`,
       withCredentials: true
     });
   }
 
   signup = (username, password, name, surname, email, phone) => {
+    console.log('hola')
+    console.log(process.env)
     return this.service.post('/signup', {username, password, name, surname, email, phone })
     .then(response => response.data)
   }

@@ -23,7 +23,7 @@ export default class GameList extends Component {
 
   componentDidMount() {
     axios
-      .get('http://localhost:5000/games')
+      .get(`${process.env.REACT_APP_API_URL}/games`)
       .then(({ data }) => {
         this.setState({ games: data })
         console.log(data)

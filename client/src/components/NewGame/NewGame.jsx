@@ -55,7 +55,7 @@ class NewGame extends Component {
 
     let { name, platform, release, genre, image, description, companies, screenshots, similars, category, stock, price } = this.state
 
-    axios.post(`http://localhost:5000/new`, { name, platform, release, genre, image, description, companies, screenshots, similars, category, stock, price })
+    axios.post(`${process.env.REACT_APP_API_URL}/new`, { name, platform, release, genre, image, description, companies, screenshots, similars, category, stock, price })
       .then(() => {
         this.setState({
           name: "",

@@ -74,9 +74,25 @@ export default class GameCard extends Component {
     this.toggleWish(this.props.gameID)
   }
 
+  toggleChart() {
+    if(!this.state.buttonSelected) {
+      this.setState({
+        buttonSelected: true,
+        buttonClass: "like is-wish"
+      })
+    } else {
+      this.setState({
+        buttonSelected: false,
+        buttonClass: "like"
+      })
+    }
+
+    this.toggleWish(this.props.gameID)
+  }
+
   getGameDetails = () => {
     axios
-      .get(`http://localhost:5000/game/${this.props.gameID}`)
+      .get(`${process.env.REACT_APP_API_URL}/game/${this.props.gameID}`)
       .then(gameFromDb => {
         const game = gameFromDb.data;
         console.log(game);
@@ -131,7 +147,7 @@ export default class GameCard extends Component {
             <p className="desc">{this.state.game.similars}</p>
           </div>
           <div className="buttons">
-            <button className="add">Add to Cart</button>
+            <button onClick={() => this.toggleChart()} className="add">Add to Cart</button>
             <button onClick={() => this.toggleButton()} style={this.state.styles} className={this.state.buttonClass}><span>♥</span></button>
           </div>
         </div>

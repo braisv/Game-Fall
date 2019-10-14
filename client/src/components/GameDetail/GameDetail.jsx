@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import './GameCard.scss'
 import axios from 'axios'
-import UserService from '../../utils/UserService'
 
 
 
@@ -49,7 +48,7 @@ export default class GameCard extends Component {
   getGameDetails = () => {
     const { params } = this.props.match;
     axios
-      .get(`http://localhost:5000/game/${params.id}`)
+      .get(`${process.env.REACT_APP_API_URL}/game/${params.id}`)
       .then(gameFromDb => {
         const game = gameFromDb.data;
         console.log(game);

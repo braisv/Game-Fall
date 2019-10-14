@@ -32,6 +32,7 @@ $dark: rgb(78, 78, 78);
   font-size: 2.2em;
   color: $dark;
   margin: 5px 0;
+  margin-bottom: 10px;
 }
 
 .container-card h2 {
@@ -54,7 +55,7 @@ $dark: rgb(78, 78, 78);
   position: absolute;
   width: 50%;
   height: 100%;
-  top: 10%;
+  top: 7%;
   left: 45%;
 }
 
@@ -143,8 +144,9 @@ $dark: rgb(78, 78, 78);
 }
 
 .game-info {
-  max-height: 65%;
+  max-height: 60%;
   overflow-y: scroll;
+  margin-top: 10px;
   margin-bottom: 20px;
 }
 

@@ -4,7 +4,7 @@ import axios from 'axios';
 export default class GameService {
   constructor() {
     this.service = axios.create({
-      baseURL: 'http://localhost:5000/api/db',
+      baseURL: `${process.env.REACT_APP_API_URL}/api/db`,
       withCredentials: true
     });
   }
