@@ -31,7 +31,7 @@ export default class Navbar extends Component {
           <div className="header flex">
               <Link className='link' to="/home"><div className="nav-box flex home">Home</div></Link>            
               <Link className='link' to="/signup"><div className="nav-box flex shop">Shop</div></Link>
-              {/* <Link className='link' to="/addgame"><div className="nav-box flex market">Market</div></Link>      */}
+              <Link className='link' to="/cart"><div className="nav-box flex market">Cart</div></Link>     
               <Link className='link' to="/test"><div className="nav-box flex aboutus">About us</div></Link>
               <Link className='link' to="/signup"><div className="nav-box flex user">{this.state.loggedInUser.username}</div></Link>
         

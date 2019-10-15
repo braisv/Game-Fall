@@ -36,6 +36,7 @@ export default class GameList extends Component {
   render() {
     const { games } = this.state
     console.log(games)
+    console.log("games2sadasasdasdsad  asdasdasdsa")
 
     // let resultSearch = games.filter(el => el.name.toLowerCase().includes(this.props.filterProducts.toLowerCase()))
 

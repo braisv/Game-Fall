@@ -1,0 +1,35 @@
+.container-chart {
+  position: relative;
+  margin: auto;
+  margin-top: 10px;
+  overflow-y: scroll;
+  width: 70vw;
+  background: #F5F5F5;
+  box-shadow: 5px 5px 15px rgba(rgb(53, 52, 52), .5);
+  border-radius: 10px;
+  color: rgb(160, 179, 195);
+  padding: 20px;
+}
+
+.chart .flex {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 50vw;
+}
+
+.chart div, .chart img {
+  background: black;
+  margin: 10px;
+  width: 20%;
+  font-size: 1.6rem;
+  width: 12vw;
+}
+
+.chart h3 {
+  font-size: 2rem;
+}
+
+.chart p {
+  font-size: 1.6rem;
+}

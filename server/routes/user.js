@@ -21,6 +21,17 @@ userRouter.put("/update/:id", (req, res, next) => {
     .catch(err => console.log(err));
 });
 
+// userRouter.get("/selectedgames", (req, res, next) => {
+//   let userId = req.body.userId
+//   User
+//       .findById(userId)
+//       .populate('purchases')
+//       .then(user => {
+//           res.json(user)
+//       })
+//       .catch(err => next(err))
+// })
+
 
 
 module.exports = userRouter;

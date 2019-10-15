@@ -8,6 +8,7 @@ import AuthService from "../auth/AuthService";
 import Main from "../Main/Main";
 import NewGame from "../NewGame/NewGame"
 import GameCard from "../GameCard/GameCard";
+import Cart from "../Cart/Cart";
 
 export default class App extends Component {
   constructor(props) {
@@ -24,12 +25,16 @@ export default class App extends Component {
   };
 
   logout = () => {
-    this.service.logout().then(() => {
-      this.setState({ loggedInUser: null });
-    });
+    this.service.logout()
+    .then(() => {
+      debugger
+      // this.setState({ loggedInUser: null });
+    })
+    .catch(err=>console.log(err));
   };
 
   fetchUser() {
+    debugger
     return this.service
       .loggedin()
       .then(response => {
@@ -55,6 +60,9 @@ export default class App extends Component {
 
 
   render() {
+    // debugger;
+    // throw new Error("test")
+    console.log("hola 2")
     if (this.state.loggedInUser) {
       return (
         <React.Fragment>
@@ -71,7 +79,9 @@ export default class App extends Component {
           <Route exact path="/game/:id" render={(props) => {
             return <GameCard userInSession={this.state.loggedInUser} gameID={props.match.params.id} />}
           } />
-          {/* <Route exact path="/test" component={Appoteosis} /> */}
+          <Route exact path="/cart" render={(props) => {
+            return <Cart userInSession={this.state.loggedInUser} gameID={props.match.params.id} />}
+          } />
         </Switch>
         </React.Fragment>
       );

@@ -27,7 +27,13 @@ export default class AuthService {
   }
 
   logout = () => {
+    debugger
+    
     return this.service.get('/logout',)
-    .then(response => response.data)
+    .then(response => {
+      debugger
+      return response.data
+    })
+    .catch(err=>console.log(err))
   }
 }

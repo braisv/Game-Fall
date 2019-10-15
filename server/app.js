@@ -9,6 +9,7 @@ const path = require('path');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const cors = require('cors');
+const logger = require('morgan')
 
 const { MONGO_URL } = process.env;
 mongoose.Promise = Promise;
@@ -27,8 +28,9 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 const app = express();
 
 // Middleware Setup
+app.use(logger('dev'))
 var whitelist = [
-  'http://localhost:3000', 'https://gamesfall.herokuapp.com'
+  'http://localhost:3000', 'http://localhost:5000', 'https://gamesfall.herokuapp.com'
 ];
 var corsOptions = {
   origin: function(origin, callback){
@@ -58,8 +60,8 @@ app.use(session({
 }));
 require('./passport')(app);
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 // app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));

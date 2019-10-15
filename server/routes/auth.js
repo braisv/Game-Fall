@@ -8,8 +8,8 @@ const passport = require('passport');
 const login = (req, user) => {
   return new Promise((resolve,reject) => {
     req.login(user, err => {
-      console.log('req.login ')
-      console.log(user)
+      // console.log('req.login ')
+      // console.log(user)
 
       
       if(err) {
@@ -24,22 +24,20 @@ const login = (req, user) => {
 
 // SIGNUP
 router.post('/signup', (req, res, next) => {
-
   const {username, password, name, surname, email, phone } = req.body;
 
-  console.log('username', username)
-  console.log('password', password)
-  console.log('name', name)
-  console.log('surname', surname)
-  console.log('email', email)
-  console.log('phone', phone)
+  // console.log('username', username)
+  // console.log('password', password)
+  // console.log('name', name)
+  // console.log('surname', surname)
+  // console.log('email', email)
+  // console.log('phone', phone)
 
   // Check for non empty user or password
   if (!username || !password){
     next(new Error('You must provide valid credentials'));
   }
 
-  console.log('sefsf')
   // Check if user exists in DB
   User.findOne({ username })
   .then( foundUser => {
@@ -59,7 +57,9 @@ router.post('/signup', (req, res, next) => {
   })
   .then( savedUser => login(req, savedUser)) // Login the user using passport
   .then( user => res.json({status: 'signup & login successfully', user})) // Answer JSON
-  .catch(e => next(e));
+  .catch(e => {
+    console.log(e)
+    next(e)});
 });
 
 router.post('/login', (req, res, next) => {

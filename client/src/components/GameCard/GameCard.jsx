@@ -75,19 +75,19 @@ export default class GameCard extends Component {
   }
 
   toggleChart() {
-    if(!this.state.buttonSelected) {
-      this.setState({
-        buttonSelected: true,
-        buttonClass: "like is-wish"
-      })
-    } else {
-      this.setState({
-        buttonSelected: false,
-        buttonClass: "like"
-      })
+    let elementsInChart = this.state.loggedInUser.chart;
+    elementsInChart.push(this.props.gameID)
+    
+    let updatedUser = {
+      ...this.state.loggedInUser,
+      chart: elementsInChart
     }
 
-    this.toggleWish(this.props.gameID)
+    this.setState({
+      ...this.state,
+      loggedInUser: updatedUser
+    })
+    this.userService.updateUser(updatedUser)
   }
 
   getGameDetails = () => {

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default class UserService {
   constructor() {
-    this.URL = "http://localhost:5000/api/user";
+    this.URL = `${process.env.REACT_APP_API_URL}/api/user`;
     this.service = axios.create({
       baseURL: this.URL,
       withCredentials: true
@@ -15,11 +15,17 @@ export default class UserService {
 
   updateUser = updatedUserObj => {
     return this.service
-      .put("/update/" + updatedUserObj.id, updatedUserObj)
+      .put("/update" + updatedUserObj.id, updatedUserObj)
       .then(response => response.data);
   };
 
   handleUpload(theFile) {
     return this.service.post("/upload", theFile).then(res => res.data);
   }
+
+  // selectedGames = (userId) => {
+  //   return this.service.get('/selectedgames', { userId })
+  //     .then(response => console.log(response.data))
+  //     .catch(err => console.log(err.res.data))
+  // }
 }
