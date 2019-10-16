@@ -1,7 +1,17 @@
-.main h1 {
+.gameList h1 {
   font-size: 3.5rem;
+  background: #F5F5F5;
+  padding: 3px 10px;
 }
 
-.main h3 {
+.gameList h3 {
   font-size: 2.2rem;
+}
+
+a.linked {
+  max-height: 300px;
+}
+
+.main {
+  margin-top: 50px;
 }

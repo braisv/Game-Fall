@@ -20,7 +20,6 @@ export default class Navbar extends Component {
   }
 
   handleLogout = e => {
-    console.log()
     this.props.logout(e);
   };
 
@@ -29,17 +28,21 @@ export default class Navbar extends Component {
       return (
         <nav className="nav-style flex-column">
           <div className="header flex">
-              <Link className='link' to="/home"><div className="nav-box flex home">Home</div></Link>            
-              <Link className='link' to="/signup"><div className="nav-box flex shop">Shop</div></Link>
-              <Link className='link' to="/cart"><div className="nav-box flex market">Cart</div></Link>     
-              <Link className='link' to="/test"><div className="nav-box flex aboutus">About us</div></Link>
-              <Link className='link' to="/signup"><div className="nav-box flex user">{this.state.loggedInUser.username}</div></Link>
-        
-          <ul className='flex'>
-            <li>
-              <a className='link' href='/' onClick={this.handleLogout}>Logout</a> 
-            </li>
-          </ul>
+            <Link className='link' to="/home"><div className="nav-box flex home">Home</div></Link>
+            <Link className='link' to="/shop"><div className="nav-box flex shop">Shop</div></Link>
+            <Link className='link' to="/test"><div className="nav-box flex aboutus">About us</div></Link>
+            <div className="nav-box flex user">
+              <div className="user-menu">
+                <ul className='flex-column'>
+                  <li>Profile info</li>
+                  <li>
+                    <a className='link' href='/' onClick={this.handleLogout}>Logout</a>
+                  </li>
+                </ul>
+              </div>
+              {this.state.loggedInUser.username}
+            </div>
+            <Link className='link' to="/cart"><div className="nav-box flex market">Cart</div></Link>
           </div>
         </nav>
       )

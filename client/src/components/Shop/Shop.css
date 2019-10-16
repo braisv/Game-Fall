@@ -1,0 +1,108 @@
+.shop-item {
+  position: relative;
+  width: fit-content;
+  background: #F5F5F5;
+  height: 300px;
+  box-shadow: 5px 5px 15px rgba(53, 52, 52, .5);
+  border-radius: 10px;
+  color: rgb(160, 179, 195);
+  padding: 10px;
+  transition: 0.4s ease-out;
+  margin: 15px;
+  filter: brightness(100%);
+}
+
+.shop-item:hover img {
+  transition: 0.4s ease-out;
+  filter: brightness(10%);
+}
+
+.shop-item img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.gameList .flex {
+  flex-wrap: wrap;
+}
+
+.shop-item h3 {
+  font-size: 1.6rem;
+  width: 150px;
+  color: whitesmoke;
+}
+
+.shop-list {
+  text-decoration: none;
+  color: whitesmoke;
+}
+
+.item-title {
+  position: relative;
+  margin: 10px;
+  bottom: 150px;
+  opacity: 0;
+}
+
+.shop-item:hover .item-title {
+  transition: 0.4s ease-out;
+  opacity: 1;
+}
+
+.price-item {
+  background: rgb(148, 29, 29);
+  width: fit-content;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: whitesmoke;
+  font-size: 2rem;
+  margin: 10px 0;
+}
+
+.platform-filter button,
+.platform-filter select {
+  margin: 10px;
+  padding: 10px 20px;
+}
+
+.platform-filter button {
+  background: gray;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+}
+
+.platform-filter {
+  background: rgb(148, 29, 29);
+  padding: 10px 20px;
+  margin: 20px;
+  margin-top: 30px;
+  border-radius: 8px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.platform-filter .searchBar {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
+.platform-filter .searchBar input {
+  background: #F5F5F5;
+  border-radius: 5px;
+  color: rgb(54, 85, 110);
+}
+
+.platform-filter .searchBar input::placeholder {
+  color: rgba(54, 85, 110, 0.6);
+}
+
+.filters select {
+  background: rgb(207, 204, 204);
+  color: rgb(54, 85, 110);
+  font-size: 1.4rem;
+  height: 100%;
+}
+
+.small-filters {
+  height: 35px;
+}

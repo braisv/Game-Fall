@@ -11,25 +11,63 @@
   padding: 20px;
 }
 
-.chart .flex {
+.chart {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-  width: 50vw;
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  margin-bottom: 20px;
 }
 
 .chart div, .chart img {
-  background: black;
+  color: rgb(42, 76, 114);
   margin: 10px;
-  width: 20%;
-  font-size: 1.6rem;
-  width: 12vw;
+  font-size: 1.4rem;
 }
 
 .chart h3 {
-  font-size: 2rem;
+  font-size: 1.6rem;
 }
 
 .chart p {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
 }
+
+.col-1 {
+  width: 100px;
+}
+
+.col-2 {
+  width: 30%;
+}
+
+.col-3 {
+  width: 10%;
+}
+
+.col-4 {
+  width: 10%;
+}
+
+.col-5 {
+  width: 10%;
+}
+
+.chart img {
+  height: auto;
+  width: 100px;
+}
+
+.col-3 input {
+  width: 80%;
+}
+
+.content-chart {
+  width: 100%;
+  height: 65vh;
+  overflow-y: scroll;
+}
+
+
+

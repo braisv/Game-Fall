@@ -62,7 +62,6 @@ $dark: rgb(78, 78, 78);
 .container-card .desc {
   text-transform: none;
   letter-spacing: 0;
-  margin-bottom: 17px;
   color: $dark;
   font-size: 1.7em;
   line-height: 1.2em;
@@ -174,4 +173,31 @@ $dark: rgb(78, 78, 78);
   color: $white;
   padding: 5px 10px;
   border-radius: 8px;
+}
+
+.list {
+  display: flex;
+  background-color: $dark;
+}
+
+.list p {
+  display: inline;
+  color: whitesmoke;
+}
+
+.desc-buttons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.desc-button {
+  background: $dark;
+  color: $white;
+  font-size: 1.4rem;
+  padding: 5px 10px;
+  border-radius: 15px;
+  margin-right: 5px;
+  margin-bottom: 5px;
 }

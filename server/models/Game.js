@@ -2,24 +2,26 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const gameSchema = new Schema({
-  search: '',
-  gamesFound: [],
-  selectedGame: '',
-  name: "",
-  platform: [],
-  release: "",
-  genre: [],
-  image: [],
-  description: "",
-  companies: [],
-  screenshots: [],
-  similars: [],
-  price: "",
+  // search: '',
+  // gamesFound: [],
+  // selectedGame: '',
+  name: String,
+  platform: [{type: String}],
+  release: String,
+  genre: [{type: String}],
+  image: [{type: String}],
+  description: String,
+  companies: [{type: String}],
+  screenshots: [{type: String}],
+  similars: [{type: String}],
+  price: Number,
+  amount: Number,
   category: {
-    type: "",
-    enum: ["New", "On sale", "Recommended"]
+    type: String,
+    enum: ["New", "On sale", "Recommended"],
+    default: "On sale"
   },
-  stock: "",
+  stock: Number,
 }, {
   timestamps: {
     createdAt: 'created_at',

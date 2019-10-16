@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   username: {
     type: String,
-    // unique: true
+    unique: true
   },
   password: String,
   name: String,
   surname: String,
-  googleId: String,
+  // googleId: String,
   // token: {
   //   type: String,
   //   unique: true
@@ -22,7 +22,7 @@ const userSchema = new Schema({
   image: String,
   email: {
       type: String,
-      // unique: true
+      unique: true
     },
   phone: String,
 
@@ -49,14 +49,14 @@ const userSchema = new Schema({
   }],
 }, {
   timestamps: true,
-  // toJSON: {
-  //   transform: function (doc, ret) {
-  //     delete ret.password
-  //     ret.id = doc._id
-  //     delete ret._id
-  //   }
-  // }
+  toJSON: {
+    transform: function (doc, ret) {
+      delete ret.password
+      ret.id = doc._id
+      delete ret._id
+    }
+  }
 });
 
-const Users = mongoose.model('Users', userSchema);
-module.exports = Users;
+const User = mongoose.model('User', userSchema);
+module.exports = User;

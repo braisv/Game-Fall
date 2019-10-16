@@ -10,8 +10,6 @@ export default class AuthService {
   }
 
   signup = (username, password, name, surname, email, phone) => {
-    console.log('hola')
-    console.log(process.env)
     return this.service.post('/signup', {username, password, name, surname, email, phone })
     .then(response => response.data)
   }
@@ -27,11 +25,8 @@ export default class AuthService {
   }
 
   logout = () => {
-    debugger
-    
     return this.service.get('/logout',)
     .then(response => {
-      debugger
       return response.data
     })
     .catch(err=>console.log(err))

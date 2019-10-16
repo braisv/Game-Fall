@@ -9,6 +9,7 @@ import Main from "../Main/Main";
 import NewGame from "../NewGame/NewGame"
 import GameCard from "../GameCard/GameCard";
 import Cart from "../Cart/Cart";
+import Shop from "../Shop/Shop";
 
 export default class App extends Component {
   constructor(props) {
@@ -27,14 +28,12 @@ export default class App extends Component {
   logout = () => {
     this.service.logout()
     .then(() => {
-      debugger
-      // this.setState({ loggedInUser: null });
+      this.setState({ loggedInUser: null });
     })
     .catch(err=>console.log(err));
   };
 
   fetchUser() {
-    debugger
     return this.service
       .loggedin()
       .then(response => {
@@ -49,20 +48,10 @@ export default class App extends Component {
       });
   }
 
-  // componentDidMount(){
-  //   this.getGame()
-  // }
 
-  // async getGame() {
-  //   let games = await this.serviceAxios.getGame();
-  //   console.log(games)
-  // }
 
 
   render() {
-    // debugger;
-    // throw new Error("test")
-    console.log("hola 2")
     if (this.state.loggedInUser) {
       return (
         <React.Fragment>
@@ -75,6 +64,7 @@ export default class App extends Component {
           </div>
           <Switch>
           <Route exact path="/home" component={Main} />
+          <Route exact path="/shop" component={Shop} />
           <Route exact path="/addgame" component={NewGame} />
           <Route exact path="/game/:id" render={(props) => {
             return <GameCard userInSession={this.state.loggedInUser} gameID={props.match.params.id} />}

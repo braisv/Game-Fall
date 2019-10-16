@@ -8,23 +8,10 @@ export default class GameCard extends Component {
   constructor(props) {
     super(props)
 
-    let gameWished = this.props.userInSession.wishlist.includes(this.props.gameID)
-    let buttonSelected, buttonClass;
-
-    if (gameWished) {
-      buttonSelected = true;
-      buttonClass = "like is-wish"
-      
-    } else {
-      buttonSelected = false;
-      buttonClass = "like is-blue"
-    }
-
     this.state = {
       loggedInUser: this.props.userInSession,
       game: '',
-      buttonSelected: buttonSelected,
-      buttonClass: buttonClass
+      buttonSelected: null
     }
     this.userService = new UserService();
   }
@@ -35,13 +22,13 @@ export default class GameCard extends Component {
 
   toggleWish = id => {
     let wishes = this.state.loggedInUser.wishlist;
-    
+
     if (wishes.includes(id)) {
-      wishes.splice(wishes.indexOf(id),1)
+      wishes.splice(wishes.indexOf(id), 1)
     } else {
       wishes.push(id)
     }
-    
+
     let updatedUser = {
       ...this.state.loggedInUser,
       wishlist: wishes
@@ -59,35 +46,25 @@ export default class GameCard extends Component {
   }
 
   toggleButton() {
-    if(!this.state.buttonSelected) {
-      this.setState({
-        buttonSelected: true,
-        buttonClass: "like is-wish"
-      })
-    } else {
-      this.setState({
-        buttonSelected: false,
-        buttonClass: "like"
-      })
-    }
-
-    this.toggleWish(this.props.gameID)
+    this.setState({
+      ...this.state,
+      buttonSelected: !this.state.buttonSelected
+    }, () => this.toggleWish(this.props.gameID));
   }
 
   toggleChart() {
     let elementsInChart = this.state.loggedInUser.chart;
     elementsInChart.push(this.props.gameID)
-    
-    let updatedUser = {
-      ...this.state.loggedInUser,
-      chart: elementsInChart
-    }
 
-    this.setState({
-      ...this.state,
-      loggedInUser: updatedUser
-    })
-    this.userService.updateUser(updatedUser)
+
+    this.userService.updateUser(this.props.gameID)
+      .then((updatedUser) => {
+        this.setState({
+          ...this.state,
+          loggedInUser: updatedUser
+        })
+
+      }, () => { console.log('NEW GAME IN CART', this.state.loggedInUser.chart) })
   }
 
   getGameDetails = () => {
@@ -95,8 +72,14 @@ export default class GameCard extends Component {
       .get(`${process.env.REACT_APP_API_URL}/game/${this.props.gameID}`)
       .then(gameFromDb => {
         const game = gameFromDb.data;
-        console.log(game);
-        this.setState({ game });
+        const gameWished = this.props.userInSession.wishlist.includes(this.props.gameID)
+        let buttonSelectedChange;
+        (gameWished ? buttonSelectedChange = true : buttonSelectedChange = false)  
+        this.setState({ 
+          ...this.state,
+          game: game,
+          buttonSelected : buttonSelectedChange
+         });
       })
       .catch(err => {
         console.log(err);
@@ -113,7 +96,26 @@ export default class GameCard extends Component {
       })
     }
 
+    let genres = null
+    if (!!this.state.game.genre) {
+      genres = this.state.game.genre.map(genre => {
+        return (<div className="desc-button">{genre}</div>)
+      })
+    }
 
+    let companies = null
+    if (!!this.state.game.companies) {
+      companies = this.state.game.companies.map(companie => {
+        return (<div className="desc-button">{companie}</div>)
+      })
+    }
+
+    let similars = null
+    if (!!this.state.game.similars) {
+      similars = this.state.game.similars.map(simil => {
+        return (<div className="desc-button">{simil}</div>)
+      })
+    }
 
     return (
       <div className="container-card" >
@@ -121,14 +123,9 @@ export default class GameCard extends Component {
           <img src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${this.state.game.image}`} alt="Cover game" />
         </div>
 
-        <p className="pick">{(!!screenshots) ? 'Screenshots' : '' }</p>
+        <p className="pick">{(!!screenshots) ? 'Screenshots' : ''}</p>
         <div className="sizes">
           {screenshots}
-          {/* {this.state.game.screenshots.map((shot, i) => (
-                  <div className="size">{i + 1}
-                  <img src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${shot}`} alt="Cover game" />
-                  </div>
-                ))} */}
         </div>
         <div className="product">
           <p>{this.state.game.platform}</p>
@@ -137,18 +134,15 @@ export default class GameCard extends Component {
           <div className="game-info">
             <p className="desc">{this.state.game.description}</p>
             <h2>Genres:</h2>
-            {/* {this.state.game.genre.map(gen => (
-            <p className="desc">{gen}</p>
-          ))} */}
-            <p className="desc">{this.state.game.genre}</p>
+            <div className="desc-buttons">{genres}</div>
             <h2>Companies:</h2>
-            <p className="desc">{this.state.game.companies}</p>
+            <div className="desc-buttons">{companies}</div>
             <h2>Similar games:</h2>
-            <p className="desc">{this.state.game.similars}</p>
+            <div className="desc-buttons">{similars}</div>
           </div>
           <div className="buttons">
             <button onClick={() => this.toggleChart()} className="add">Add to Cart</button>
-            <button onClick={() => this.toggleButton()} style={this.state.styles} className={this.state.buttonClass}><span>♥</span></button>
+            <button onClick={() => this.toggleButton()} className={this.state.buttonSelected ? 'like is-wish' : 'like is-blue'}><span>♥</span></button>
           </div>
         </div>
       </div>

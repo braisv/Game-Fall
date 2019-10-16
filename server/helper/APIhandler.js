@@ -15,31 +15,6 @@ class APIHandler {
     })
     let games = game.data
     return games
-    // console.log("PRIMER TOTAL GAMES", games)
-
-    // let covers = []
-
-    // await games.forEach(gameItem => {
-    //   console.log("GAME ITEM", gameItem)
-    //   axios({
-    //     url: "https://api-v3.igdb.com/covers",
-    //     method: 'POST',
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'user-key': process.env.API_KEY
-    //     },
-    //     data: `fields *; where id = (${gameItem.cover});`
-    //   }).then(cover => {
-    //     console.log("GOT THE COVER", cover.data)
-    //     covers.push(cover.data[0])
-    //     console.log("LOS COVERS", covers)
-    //   })
-    // })
-
-    // console.log("COVERS ARRAY", covers)
-
-    // console.log("Ha llegao al final de la función")
-    // return covers
 
   }
 
@@ -55,7 +30,6 @@ class APIHandler {
       data: `fields id,name,first_release_date,platforms,genres,summary,cover,screenshots,keywords,collection,franchise,involved_companies,similar_games; where id=${gameID};`
     })
     let finalGame = game.data[0]
-    console.log(finalGame)
 
 
     if (!!finalGame.keywords) {
@@ -198,8 +172,6 @@ class APIHandler {
       })
       finalGame.similar_games = game.data.map(x => x.name)
     }
-
-    console.log(finalGame)
 
     return finalGame
   }

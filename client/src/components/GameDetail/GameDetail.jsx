@@ -36,7 +36,6 @@ export default class GameCard extends Component {
   }
 
   updateUser(updatedUserObj) {
-    console.log('SERVICE', updatedUserObj)
     // return this.UserService.updateUser(updatedUserObj).then().catch();
   }
 
@@ -51,7 +50,6 @@ export default class GameCard extends Component {
       .get(`${process.env.REACT_APP_API_URL}/game/${params.id}`)
       .then(gameFromDb => {
         const game = gameFromDb.data;
-        console.log(game);
         this.setState({ game });
       })
       .catch(err => {
@@ -60,8 +58,6 @@ export default class GameCard extends Component {
   };
 
   render() {
-    console.log('GAME CARD KEY', this.state.loggedUser)
-    console.log('GAME CARD', this.props.userInSession)
 
     let screenshots = null
     if (!!this.state.game.screenshots) {

@@ -60,7 +60,6 @@ const selected = 'All';
 export default class FilterProducts extends Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.menuItems = Menu(list, selected);
         this.service = new AuthServices();
     }

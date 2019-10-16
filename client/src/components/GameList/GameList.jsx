@@ -26,7 +26,6 @@ export default class GameList extends Component {
       .get(`${process.env.REACT_APP_API_URL}/games`)
       .then(({ data }) => {
         this.setState({ games: data })
-        console.log(data)
       })
       .catch(error => {
         console.log(error)
@@ -35,16 +34,24 @@ export default class GameList extends Component {
 
   render() {
     const { games } = this.state
-    console.log(games)
-    console.log("games2sadasasdasdsad  asdasdasdsa")
-
-    // let resultSearch = games.filter(el => el.name.toLowerCase().includes(this.props.filterProducts.toLowerCase()))
 
     if (!games) return <h1>NO STOCK.</h1>
     return (
       <div className='gameList'>
+        <h1>NEW ON STORE</h1>
         <div class="container flex">
-          {this.state.games.map(game => (
+          {this.state.games.filter(el => el.category == "New").map(game => (
+            <Link to={`/game/${game._id}`} className="linked">
+              <div class="card">
+                <img src={`https://images.igdb.com/igdb/image/upload/t_cover_big/${game.image[0]}`} alt="Cover game" />
+              </div>
+              <div className="text-img"><h3>{game.name}</h3></div>
+            </Link>
+          ))}
+        </div>
+        <h1>RECOMMENDED</h1>
+        <div class="container flex">
+          {this.state.games.filter(el => el.category == "Recommended").map(game => (
             <Link to={`/game/${game._id}`} className="linked">
               <div class="card">
                 <img src={`https://images.igdb.com/igdb/image/upload/t_cover_big/${game.image[0]}`} alt="Cover game" />

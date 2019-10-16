@@ -22,15 +22,14 @@ class NewGame extends Component {
       companies: "",
       screenshots: [],
       similars: "",
-      price: "",
-      category: '',
-      stock: ""
+      price: 0,
+      category: "On sale",
+      stock: 0,
     }
   }
 
   handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(e.target)
     this.setState({ [name]: value });
   }
 
@@ -67,9 +66,9 @@ class NewGame extends Component {
           companies: "",
           screenshots: [],
           similars: "",
-          price: "",
-          category: "",
-          stock: "",
+          price: 0,
+          category: "On sale",
+          stock: 0,
         });
         this.props.history.push('/home');
       })
@@ -91,7 +90,6 @@ class NewGame extends Component {
 
     this.service.search(search)
       .then(response => {
-        console.log(response)
         this.setState({
           gamesFound: response,
           search: search
@@ -341,8 +339,8 @@ class NewGame extends Component {
             </div>
             <div className="div10 flex-column">
               <label>Category:</label>
-              <select onChange={e => this.handleChange(e)}>
-                <option value='On Sale'>On Sale</option>
+              <select name='category' value={this.state.category} onChange={e => this.handleChange(e)}>
+                <option value='On sale'>On sale</option>
                 <option value='Recommended'>Recommended</option>
                 <option value='New'>New</option>
               </select>

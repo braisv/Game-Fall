@@ -15,7 +15,7 @@ export default class UserService {
 
   updateUser = updatedUserObj => {
     return this.service
-      .put("/update" + updatedUserObj.id, updatedUserObj)
+      .post(`/update`, {updatedUserObj})
       .then(response => response.data);
   };
 
@@ -23,9 +23,9 @@ export default class UserService {
     return this.service.post("/upload", theFile).then(res => res.data);
   }
 
-  // selectedGames = (userId) => {
-  //   return this.service.get('/selectedgames', { userId })
-  //     .then(response => console.log(response.data))
-  //     .catch(err => console.log(err.res.data))
-  // }
+  selectedGames = () => {
+    return this.service.get("/cart")
+      .then(response => response.data)
+      .catch(err => console.log('ERROR FROM SERVICE', err))
+  }
 }
