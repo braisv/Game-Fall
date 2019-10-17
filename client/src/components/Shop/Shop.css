@@ -148,3 +148,11 @@
   height: 90vh;
   z-index: 2;
 }
+
+.addGame button {
+  background: rgb(84, 175, 84);
+  border: none;
+  font-size: 2rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}

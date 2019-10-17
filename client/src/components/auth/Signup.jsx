@@ -55,7 +55,7 @@ export default class Signup extends Component {
 
   render() {
     return(
-      <div className='container-card flex-column'>
+      <div className='container-signup flex-column'>
         <h3>Welcome! Join our community filling this form:</h3>
 
         <form className="signup-form" onSubmit={this.handleFormSubmit}>

@@ -52,13 +52,20 @@ gameRouter.post('/update', (req, res, next) => {
     .then(theGame => res.json(theGame))
 });
 
-// gameRouter.post('/remove', (req, res, next) => {
-//   const { id } = req.body;
-//   Game
-//     .findByIdAndRemove({ _id : id})
-//     .then(theGame => res.json(theGame))
-// });
+gameRouter.post('/remove/:id', (req, res, next) => {
+  const gameID = req.params.id
+  Game
+    .findByIdAndRemove({ _id : gameID })
+    .then(theGame => res.json(theGame))
+});
 
+gameRouter.post('/edit/:id', (req, res, next) => {
+  const { name, platform, release, genre, image, description, companies, screenshots, similars, category, stock, price } = req.body;
+  const gameID = req.params.id
+  Game
+    .findByIdAndUpdate({ _id: gameID }, { $set: { name, platform, release, genre, image, description, companies, screenshots, similars, category, stock, price }}, { new: true })
+    .then(theGame => res.json(theGame))
+});
 
 
 module.exports = gameRouter;

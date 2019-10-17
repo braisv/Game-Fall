@@ -247,4 +247,36 @@ $red: rgb(148, 29, 29);
   
 }
 
+.icon-edit {
+  background: rgb(137, 200, 55);
+  font-weight: bold;
+  color: whitesmoke;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  font-size: 3rem;
+  padding: 5px;
+  border-radius: 50%;
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  right: 8%;
+  top: 3%;
+  cursor: pointer;
+}
+
+.icon-delete {
+  background: rgb(172, 22, 22);
+  font-weight: bold;
+  color: whitesmoke;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  font-size: 3rem;
+  padding: 5px;
+  border-radius: 50%;
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  right: 3%;
+  top: 3%;
+  cursor: pointer;
+}
+
 

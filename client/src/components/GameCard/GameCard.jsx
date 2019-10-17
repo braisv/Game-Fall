@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import { withRouter, Link } from "react-router-dom";
 import './GameCard.scss'
 import axios from 'axios'
 import UserService from '../../utils/UserService'
 
 
-export default class GameCard extends Component {
+class GameCard extends Component {
   constructor(props) {
     super(props)
 
@@ -106,6 +107,39 @@ export default class GameCard extends Component {
       });
   };
 
+  getGameDetails = () => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/game/${this.props.gameID}`)
+      .then(gameFromDb => {
+        const game = gameFromDb.data;
+        const gameWished = this.props.userInSession.wishlist.includes(this.props.gameID)
+        let buttonSelectedChange;
+        (gameWished ? buttonSelectedChange = true : buttonSelectedChange = false)
+        this.setState({
+          ...this.state,
+          game: game,
+          buttonSelected: buttonSelectedChange
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  removeGame() {
+    axios
+    .post(`${process.env.REACT_APP_API_URL}/remove/${this.props.gameID}`)
+    .then( () => {
+      this.setState({
+        ...this.state
+      });
+      this.props.history.push('/home');
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+
   render() {
     let screenshots = null
     if (!!this.state.game.screenshots) {
@@ -142,8 +176,19 @@ export default class GameCard extends Component {
       alert = (<div className="alert">{this.state.message}</div>)
     }
 
+    let editButtons = null
+    if (this.state.loggedInUser.role === "ADMIN") {
+      editButtons = (
+      <div>
+        <Link className='link' to={`/edit/${this.state.game._id}`}><div className="icon-edit flex">E</div></Link>
+        <div onClick={() => this.removeGame()} className="icon-delete flex">X</div>
+        </div>
+        )
+    }
+
     return (
       <div className="container-card" >
+        {editButtons}
         <div className="images">
           <img src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${this.state.game.image}`} alt="Cover game" />
         </div>
@@ -176,3 +221,5 @@ export default class GameCard extends Component {
     )
   }
 }
+
+export default withRouter(GameCard);

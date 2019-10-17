@@ -147,61 +147,68 @@ export default class Shop extends Component {
     })
   }
 
-  render() {
-    const { games } = this.state
-    let resultSearch = games
+render() {
+  const { games } = this.state
+  let resultSearch = games
 
-    if (!!resultSearch) {
-      resultSearch = games.filter(el => el.name.toLowerCase().includes(this.state.search.toLowerCase()))
-      resultSearch = resultSearch.map(game => {
-        return (
-          <Link to={`/game/${game._id}`} className="shop-list">
-            <div class="shop-item">
-              <img src={`https://images.igdb.com/igdb/image/upload/t_cover_big/${game.image[0]}`} alt="Cover game" />
-              <div className="item-title"><h3>{game.name}</h3>
-                <div className="price-item">{game.price} €</div>
-                </div>
+  if (!!resultSearch) {
+    resultSearch = games.filter(el => el.name.toLowerCase().includes(this.state.search.toLowerCase()))
+    resultSearch = resultSearch.map(game => {
+      return (
+        <Link to={`/game/${game._id}`} className="shop-list">
+          <div class="shop-item">
+            <img src={`https://images.igdb.com/igdb/image/upload/t_cover_big/${game.image[0]}`} alt="Cover game" />
+            <div className="item-title"><h3>{game.name}</h3>
+              <div className="price-item">{game.price} €</div>
             </div>
-          </Link>
-        )
-      })
-    }
+          </div>
+        </Link>
+      )
+    })
+  }
 
-    if (!games) return <div className="spinner"><div class="lds-hourglass"></div></div>
-    return (
-      <div className="shop-container flex-column">
-        {/* <div className="flex">
-          <Link className='link' to="/addgame"><button>Add new Game</button></Link>
-        </div> */}
-        <div className="platform-filter filters flex-column">
-          <form className='searchBar'>
-            <input type="search" name="search" id="search" placeholder='Search game' value={this.state.search} onChange={e => this.updateSearch(e)} />
-          </form>
-          <div className="flex small-filters">
-            <select name="platform" id="platform-filter" selected="Select a platform" onChange={e => this.updatePlatform(e)}>
-              <option value="Select a platform">All the platforms</option>
-              {this.state.platforms.map(plat => (
-                <option value={plat}>{plat}</option>
-              ))}
-            </select>
-            <button onClick={this.sortByPlatform}>Sort</button>
-            <select name="genre" id="genre-filter" selected="Genre" onChange={e => this.updateGenre(e)}>
-              <option value="Genre">Genres</option>
-              {this.state.genres.map(plat => (
-                <option value={plat}>{plat}</option>
-              ))}
-            </select>
-            <button onClick={this.sortByGenre}>Sort</button>
-            <button onClick={this.sortByName}>Sort by Name</button>
-            <button onClick={this.sortByPrice}>Sort by Price</button>
-          </div>
-        </div>
-        <div className='gameList'>
-          <div class="form-section flex">
-            {resultSearch}
-          </div>
-        </div>
+  let addGame = null
+  if (this.props.userInSession.role === "ADMIN") {
+    addGame = (
+      <div className="flex addGame">
+        <Link className='link' to="/addgame"><button>+</button></Link>
       </div>
     )
   }
+
+  if (!games) return <div className="spinner"><div class="lds-hourglass"></div></div>
+  return (
+    <div className="shop-container flex-column">
+      <div className="platform-filter filters flex-column">
+        <form className='searchBar'>
+        {addGame}
+          <input type="search" name="search" id="search" placeholder='Search game' value={this.state.search} onChange={e => this.updateSearch(e)} />
+        </form>
+        <div className="flex small-filters">
+          <select name="platform" id="platform-filter" selected="Select a platform" onChange={e => this.updatePlatform(e)}>
+            <option value="Select a platform">All the platforms</option>
+            {this.state.platforms.map(plat => (
+              <option value={plat}>{plat}</option>
+            ))}
+          </select>
+          <button onClick={this.sortByPlatform}>Sort</button>
+          <select name="genre" id="genre-filter" selected="Genre" onChange={e => this.updateGenre(e)}>
+            <option value="Genre">Genres</option>
+            {this.state.genres.map(plat => (
+              <option value={plat}>{plat}</option>
+            ))}
+          </select>
+          <button onClick={this.sortByGenre}>Sort</button>
+          <button onClick={this.sortByName}>Sort by Name</button>
+          <button onClick={this.sortByPrice}>Sort by Price</button>
+        </div>
+      </div>
+      <div className='gameList'>
+        <div class="form-section flex">
+          {resultSearch}
+        </div>
+      </div>
+    </div>
+  )
+}
 }

@@ -31,7 +31,7 @@ export default class Navbar extends Component {
             <img src="./images/Logotipe.png" alt="Logotipe"/>
             <Link className='link' to="/home"><div className="nav-box flex home">Home</div></Link>
             <Link className='link' to="/shop"><div className="nav-box flex shop">Shop</div></Link>
-            <Link className='link' to="/test"><div className="nav-box flex aboutus">About us</div></Link>
+            <Link className='link' to="/aboutus"><div className="nav-box flex aboutus">About us</div></Link>
             <div className="nav-box flex user">
               <div className="user-menu">
                 <ul className='flex-column'>

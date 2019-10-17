@@ -21,6 +21,7 @@ input {
   overflow-y: scroll;
   background: linear-gradient(344deg, rgba(83, 28, 119, 0.644) 31%, rgba(232, 137, 235, 0.493) 100%);
   box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.363);
+  cursor: pointer;
 }
 
 .gameCardSmall h1 {
@@ -63,20 +64,20 @@ input {
   padding: 20px;
   }
   
-  .div1 { grid-area: 1 / 1 / 2 / 2; }
-  .div2 { grid-area: 2 / 1 / 5 / 2; }
-  .div3 { grid-area: 5 / 1 / 6 / 2; }
-  .div4 { grid-area: 6 / 1 / 7 / 2; }
-  .div5 { grid-area: 1 / 2 / 2 / 3; }
-  .div6 { grid-area: 2 / 2 / 5 / 3; }
-  .div7 { grid-area: 5 / 2 / 6 / 3; }
-  .div8 { grid-area: 6 / 2 / 7 / 3; }
-  .div9 { grid-area: 1 / 3 / 2 / 4; }
-  .div10 { grid-area: 2 / 3 / 3 / 4; }
-  .div11 { grid-area: 3 / 3 / 4 / 4; }
-  .div12 { grid-area: 4 / 3 / 5 / 4; }
-  .div13 { grid-area: 5 / 3 / 6 / 4; }
-  .div14 { grid-area: 6 / 3 / 7 / 4; }
+  .parent .div1 { grid-area: 1 / 1 / 2 / 2; }
+  .parent .div2 { grid-area: 2 / 1 / 5 / 2; }
+  .parent .div3 { grid-area: 5 / 1 / 6 / 2; }
+  .parent .div4 { grid-area: 6 / 1 / 7 / 2; }
+  .parent .div5 { grid-area: 1 / 2 / 2 / 3; }
+  .parent .div6 { grid-area: 2 / 2 / 5 / 3; }
+  .parent .div7 { grid-area: 5 / 2 / 6 / 3; }
+  .parent .div8 { grid-area: 6 / 2 / 7 / 3; }
+  .parent .div9 { grid-area: 1 / 3 / 2 / 4; }
+  .parent .div10 { grid-area: 2 / 3 / 3 / 4; }
+  .parent .div11 { grid-area: 3 / 3 / 4 / 4; }
+  .parent .div12 { grid-area: 4 / 3 / 5 / 4; }
+  .parent .div13 { grid-area: 5 / 3 / 6 / 4; }
+  .parent .div14 { grid-area: 6 / 3 / 7 / 4; }
 
   .parent label {
     font-size: 1.6rem;
