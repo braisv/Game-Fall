@@ -7,6 +7,7 @@ $tan: rgb(160, 179, 195);
 $pink: rgb(170, 198, 217);
 $rose: rgb(126, 154, 186);
 $dark: rgb(78, 78, 78);
+$red: rgb(148, 29, 29);
 
 /* center container in the middle */
 
@@ -169,10 +170,14 @@ $dark: rgb(78, 78, 78);
 
 #price {
   display: inline;
-  background: $tan;
+  background: $red;
   color: $white;
   padding: 5px 10px;
   border-radius: 8px;
+}
+
+.desc {
+  margin-top: 15px;
 }
 
 .list {
@@ -201,3 +206,45 @@ $dark: rgb(78, 78, 78);
   margin-right: 5px;
   margin-bottom: 5px;
 }
+
+.alert {
+  position: absolute;
+  background-color: rgb(60, 60, 82);
+  border: 15px solid white;
+  box-shadow: 0 0 10px black;
+  padding: 60px;
+  font-size: 2.4rem;
+  top: 45%;
+  left: 0;
+  animation: 3.5s fadeInUpBig forwards;
+
+  @keyframes fadeInUpBig {
+    0% {
+      opacity: 0;
+      -webkit-transform: translate3d(0, 2000px, 0);
+      transform: translate3d(0, 2000px, 0);
+    }
+  
+    10% {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+
+    70% {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  
+    100% {
+      opacity: 0;
+      -webkit-transform: translate3d(0, 2000px, 0);
+      transform: translate3d(0, 2000px, 0);
+    }
+  }
+
+  
+}
+
+

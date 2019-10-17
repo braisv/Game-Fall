@@ -15,7 +15,10 @@ const gameSchema = new Schema({
   screenshots: [{type: String}],
   similars: [{type: String}],
   price: Number,
-  amount: Number,
+  amount: {
+    type: Number,
+    default: 1
+  },
   category: {
     type: String,
     enum: ["New", "On sale", "Recommended"],

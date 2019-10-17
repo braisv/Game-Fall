@@ -1,8 +1,19 @@
 import React, { Component } from 'react'
 import './Cart.css'
 import UserService from '../../utils/UserService'
+import axios from 'axios'
+import PaypalButton from '../PaypalButton/PaypalButton';
+import { withRouter } from "react-router-dom";
 
-export default class Cart extends Component {
+
+const CLIENT = {
+  sandbox: process.env.REACT_APP_PAYPAL_CLIENT_ID,
+
+};
+const ENV = 'sandbox';
+
+
+class Cart extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -24,26 +35,83 @@ export default class Cart extends Component {
         const games = userPopulate.chart
 
         let total = games.reduce((a, b) => {
-            return a + +b.price
+          return a + (+b.price * +b.amount)
         }, 0)
 
         this.setState({
-            ...this.state,
-            games: games,
-            finalPrice: total
+          ...this.state,
+          games: games,
+          finalPrice: total
         })
       })
       .catch(err => console.log('NO POPULA', err))
   }
 
+  addGame = (game) => {
+    let amount = ++game.amount
+    let id = game._id
+
+    axios.post(`${process.env.REACT_APP_API_URL}/update`, { id, amount })
+      .then(() => {
+        this.setState({
+          ...this.state,
+          finalPrice: this.state.finalPrice + game.price
+        })
+      }, () => this.getGamesCart())
+      .catch(error => console.log(error))
+  }
+
+  deleteGame = (game) => {
+
+    if (game.amount === 1) {
+      this.userService.removeFromCart(game)
+        .then(() => {
+          this.setState({
+            ...this.state,
+            finalPrice: this.state.finalPrice - game.price,
+            games: this.state.games.filter(gameArr => gameArr !== game)
+          })
+        })
+        .catch(error => console.log(error))
+    } else {
+      let amount = --game.amount
+      let id = game._id
+
+      axios.post(`${process.env.REACT_APP_API_URL}/update`, { id, amount })
+        .then(() => {
+          this.setState({
+            ...this.state,
+            finalPrice: this.state.finalPrice - game.price
+          })
+        }, () => this.getGamesCart())
+        .catch(error => console.log(error))
+
+    }
+  }
+
   render() {
+
+    const onSuccess = (payment) =>
+      console.log('Successful payment!', payment);
+    const onError = (error) =>
+      console.log('Erroneous payment OR failed to load script!', error);
+    const onCancel = (data) =>
+      console.log('Cancelled payment!', data);
+
+    let button = {
+      style: {
+        tagline: 'false',
+        color: 'black'
+      }
+    }
+
+
+
 
     let cartItems = null
 
     if (!!this.state.games) {
       cartItems = this.state.games.map(game => {
-        let amount = console.log(document.querySelector('#amount'))
-        let totalPrice = game.price;
         return (
           <div className="chart flex">
             <img className="col-1" src={`https://images.igdb.com/igdb/image/upload/t_cover_small/${game.image}`} alt="GAME COVER" />
@@ -51,12 +119,18 @@ export default class Cart extends Component {
               <h3>{game.name}</h3>
               <p>{game.platform}</p>
             </div>
-            <div className="col-3"><input type="number" id="amount" min="0" defaultValue="1" onChange={amount} /></div>
+            <div className="col-3">
+              <div className="amountCart">
+                <p>{game.amount}</p>
+                <button className="addGame buttonCart" onClick={() => this.addGame(game)}>+</button>
+                <button className="deleteGame buttonCart" onClick={() => this.deleteGame(game)}>-</button>
+              </div>
+            </div>
             <div className="col-4">{(game.price) ? game.price : 0} €</div>
-            <div className="col-5">{totalPrice} €</div>
+            <div className="col-5">{game.amount * game.price} €</div>
           </div>
-      )
-        })
+        )
+      })
     }
 
     return (
@@ -71,9 +145,28 @@ export default class Cart extends Component {
           <div className="col-5">Total Price</div>
         </div>
         <div className="content-chart">{cartItems}</div>
-        <button onClick={() => this.getGamesCart()}>Final Price: {this.state.finalPrice} €</button>
+
+        <div className="payment flex">
+          <button onClick={() => this.getGamesCart()}>Final Price: {this.state.finalPrice} €</button>
+          <div>
+            <PaypalButton
+              style={button.style}
+              client={CLIENT}
+              env={ENV}
+              commit={true}
+              currency={'EUR'}
+              total={this.state.finalPrice}
+              onSuccess={onSuccess}
+              onError={onError}
+              onCancel={onCancel}
+            />
+          </div>
+        </div>
 
       </div>
     )
   }
 }
+
+
+export default withRouter(Cart);

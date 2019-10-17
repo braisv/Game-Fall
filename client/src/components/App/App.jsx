@@ -10,6 +10,7 @@ import NewGame from "../NewGame/NewGame"
 import GameCard from "../GameCard/GameCard";
 import Cart from "../Cart/Cart";
 import Shop from "../Shop/Shop";
+import Profile from "../Profile/Profile";
 
 export default class App extends Component {
   constructor(props) {
@@ -65,6 +66,7 @@ export default class App extends Component {
           <Switch>
           <Route exact path="/home" component={Main} />
           <Route exact path="/shop" component={Shop} />
+          <Route exact path={`/${this.state.loggedInUser.username}`} render={() => <Profile userInSession={this.state.loggedInUser} />}  />
           <Route exact path="/addgame" component={NewGame} />
           <Route exact path="/game/:id" render={(props) => {
             return <GameCard userInSession={this.state.loggedInUser} gameID={props.match.params.id} />}

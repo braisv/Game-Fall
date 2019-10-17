@@ -13,9 +13,27 @@ export default class UserService {
     return this.service.get("/" + id).then(response => response.data);
   };
 
-  updateUser = updatedUserObj => {
+  updateUserChart = updatedUserObj => {
     return this.service
-      .post(`/update`, {updatedUserObj})
+      .post(`/updateChart`, {updatedUserObj})
+      .then(response => response.data);
+  };
+
+  updateUserWish = updatedUserObj => {
+    return this.service
+      .post(`/updateWish`, {updatedUserObj})
+      .then(response => response.data);
+  };
+
+  removeFromCart = game => {
+    return this.service
+      .post(`/removeFromCart`, {game})
+      .then(response => response.data);
+  };
+
+  removeWish = game => {
+    return this.service
+      .post(`/removeWish`, {game})
       .then(response => response.data);
   };
 
@@ -25,6 +43,12 @@ export default class UserService {
 
   selectedGames = () => {
     return this.service.get("/cart")
+      .then(response => response.data)
+      .catch(err => console.log('ERROR FROM SERVICE', err))
+  }
+
+  selectedWish = () => {
+    return this.service.get("/wish")
       .then(response => response.data)
       .catch(err => console.log('ERROR FROM SERVICE', err))
   }

@@ -43,15 +43,15 @@
 }
 
 .col-3 {
-  width: 10%;
+  width: 20%;
 }
 
 .col-4 {
-  width: 10%;
+  width: 7%;
 }
 
 .col-5 {
-  width: 10%;
+  width: 7%;
 }
 
 .chart img {
@@ -59,8 +59,14 @@
   width: 100px;
 }
 
-.col-3 input {
-  width: 80%;
+.amountCart {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.amountCart p {
+  font-size: 2rem;
 }
 
 .content-chart {
@@ -69,5 +75,20 @@
   overflow-y: scroll;
 }
 
+.buttonCart {
+  border-radius: 0;
+}
+
+.addGame {
+  margin-left: 10px;
+}
+
+.deleteGame {
+  background: rgb(148, 29, 29);
+}
+
+.payment div {
+  margin-left: 5px;
+}
 
 

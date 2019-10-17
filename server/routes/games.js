@@ -45,6 +45,20 @@ gameRouter.get('/game/:id', (req, res, next) => {
     .then(game => res.json(game))
 });
 
+gameRouter.post('/update', (req, res, next) => {
+  const { amount, id } = req.body;
+  Game
+    .findByIdAndUpdate({ _id:id}, { $set: { amount:amount }}, { new: true })
+    .then(theGame => res.json(theGame))
+});
+
+// gameRouter.post('/remove', (req, res, next) => {
+//   const { id } = req.body;
+//   Game
+//     .findByIdAndRemove({ _id : id})
+//     .then(theGame => res.json(theGame))
+// });
+
 
 
 module.exports = gameRouter;

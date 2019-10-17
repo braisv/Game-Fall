@@ -40,24 +40,28 @@ export default class Login extends Component {
 
   render() {
 
-    return (<div>
-      <h3>Please, login to our site</h3>
+    return (
+      <div className='container-card flex-column'>
+        <h3>Welcome back!</h3>
 
-      <form onSubmit={this.handleFormSubmit}>
-        <fieldset>
-          <label>Username:</label>
-          <input type="text" name="username" value={this.state.username} onChange={e => this.handleChange(e)} />
-        </fieldset>
+        <form className="signup-form" onSubmit={this.handleFormSubmit}>
+          <div className="flex">
+            <fieldset>
+              <label>Username:</label>
+              <input type="text" name="username" value={this.state.username} onChange={e => this.handleChange(e)} />
+            </fieldset>
 
-        <fieldset>
-          <label>Password:</label>
-          <input type="password" name="password" value={this.state.password} onChange={e => this.handleChange(e)} />
-        </fieldset>
+            <fieldset>
+              <label>Password:</label>
+              <input type="password" name="password" value={this.state.password} onChange={e => this.handleChange(e)} />
+            </fieldset>
 
-        <input type="submit" value="Login" />
-      </form>
+          </div>
+          <input className="submit-signup" type="submit" value="Log in" />
+        </form>
 
-      <h1>{this.state.error ? 'Error' : ''}</h1>
-    </div>)
+        <h1>{this.state.error ? 'Error' : ''}</h1>
+      </div>
+    )
   }
 }

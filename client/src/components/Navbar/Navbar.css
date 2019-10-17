@@ -49,10 +49,11 @@ nav {
   margin: 0 5px;
   padding: 0 10px;
   color: whitesmoke;
-	font-size: 3.6rem;
-	font-weight: bold;;
-  -webkit-text-fill-color: rgb(157, 200, 228);
-  -webkit-text-stroke-width: 1px;
+	font-size: 3rem;
+  font-weight: bold;
+  filter: grayscale(40%);
+  -webkit-text-fill-color: rgb(255, 255, 255);
+  -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: rgba(0, 0, 0, 0.6);
 	transition: transform 0.2s;
 }
@@ -157,4 +158,10 @@ nav {
 	transition: all 0.4s;
   display: flex;
   opacity: 1;
+}
+
+.header img {
+  height: 100%;
+  width: 12%;
+  margin-right: 40px;
 }

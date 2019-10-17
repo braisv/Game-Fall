@@ -35,7 +35,7 @@ export default class GameList extends Component {
   render() {
     const { games } = this.state
 
-    if (!games) return <h1>NO STOCK.</h1>
+    if (!games) return <div className="spinner"><div class="lds-hourglass"></div></div>
     return (
       <div className='gameList'>
         <h1>NEW ON STORE</h1>

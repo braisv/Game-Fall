@@ -11,6 +11,7 @@ export default class GameCard extends Component {
     this.state = {
       loggedInUser: this.props.userInSession,
       game: '',
+      message: null,
       buttonSelected: null
     }
     this.userService = new UserService();
@@ -20,29 +21,36 @@ export default class GameCard extends Component {
     this.getGameDetails();
   }
 
-  toggleWish = id => {
-    let wishes = this.state.loggedInUser.wishlist;
+  toggleWish() {
+    if (!this.state.buttonSelected) {
+      this.userService.removeWish(this.props.gameID)
+        .then((updatedUserWish) => {
+            this.setState({
+              ...this.state,
+              loggedInUser: updatedUserWish,
+              buttonSelected: false
+            })
+        }, () => { console.log('REMOVED GAME IN WISHLIST', this.state.loggedInUser.wishlist) })
+        .catch(error => console.log(error))
 
-    if (wishes.includes(id)) {
-      wishes.splice(wishes.indexOf(id), 1)
     } else {
-      wishes.push(id)
+    this.userService.updateUserWish(this.props.gameID)
+      .then((updatedUserWish) => {
+        this.setState({
+          ...this.state,
+          loggedInUser: updatedUserWish,
+          buttonSelected: true
+        })
+      }, () => { console.log('NEW GAME IN WISHLIST', this.state.loggedInUser.wishlist) })
     }
-
-    let updatedUser = {
-      ...this.state.loggedInUser,
-      wishlist: wishes
-    }
-
-    this.setState({
-      ...this.state,
-      loggedInUser: updatedUser
-    })
-    this.userService.updateUser(updatedUser)
   }
 
-  updateUser(updatedUserObj) {
-    return this.userService.updateUser(updatedUserObj).then().catch();
+  updateUserChart(updatedUserObj) {
+    return this.userService.updateUserChart(updatedUserObj).then().catch();
+  }
+
+  updateUserWish(updatedUserObj) {
+    return this.userService.updateUserWish(updatedUserObj).then().catch();
   }
 
   toggleButton() {
@@ -54,10 +62,22 @@ export default class GameCard extends Component {
 
   toggleChart() {
     let elementsInChart = this.state.loggedInUser.chart;
-    elementsInChart.push(this.props.gameID)
+    if (elementsInChart.includes(this.props.gameID)) {
+      this.setState({
+        ...this.state,
+        message: "This game is already in the Cart"
+      })
+      setTimeout(() => {
+        this.setState({
+          ...this.state,
+          message: null
+        })
+      }, 4000)
+      return
+    } else { elementsInChart.push(this.props.gameID) }
 
 
-    this.userService.updateUser(this.props.gameID)
+    this.userService.updateUserChart(this.props.gameID)
       .then((updatedUser) => {
         this.setState({
           ...this.state,
@@ -74,12 +94,12 @@ export default class GameCard extends Component {
         const game = gameFromDb.data;
         const gameWished = this.props.userInSession.wishlist.includes(this.props.gameID)
         let buttonSelectedChange;
-        (gameWished ? buttonSelectedChange = true : buttonSelectedChange = false)  
-        this.setState({ 
+        (gameWished ? buttonSelectedChange = true : buttonSelectedChange = false)
+        this.setState({
           ...this.state,
           game: game,
-          buttonSelected : buttonSelectedChange
-         });
+          buttonSelected: buttonSelectedChange
+        });
       })
       .catch(err => {
         console.log(err);
@@ -117,6 +137,11 @@ export default class GameCard extends Component {
       })
     }
 
+    let alert = null
+    if (!!this.state.message) {
+      alert = (<div className="alert">{this.state.message}</div>)
+    }
+
     return (
       <div className="container-card" >
         <div className="images">
@@ -143,6 +168,7 @@ export default class GameCard extends Component {
           <div className="buttons">
             <button onClick={() => this.toggleChart()} className="add">Add to Cart</button>
             <button onClick={() => this.toggleButton()} className={this.state.buttonSelected ? 'like is-wish' : 'like is-blue'}><span>♥</span></button>
+            {alert}
           </div>
         </div>
       </div>

@@ -261,6 +261,7 @@ class NewGame extends Component {
             <div className="div3 flex-column">
               <label>Platform:</label>
               <select onChange={this.handleChangeSelect.bind(this)} >
+                  <option value="Select a platform">Select a platform</option>
                 {this.state.platform.map(plat => (
                   <option value={plat}>{plat}</option>
                 ))}

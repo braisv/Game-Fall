@@ -55,10 +55,11 @@ export default class Signup extends Component {
 
   render() {
     return(
-      <div className='container-card'>
-        <h3>Welcome!, create your account next:</h3>
+      <div className='container-card flex-column'>
+        <h3>Welcome! Join our community filling this form:</h3>
 
         <form className="signup-form" onSubmit={this.handleFormSubmit}>
+          <div className="flex">
           <fieldset>
             <label>Username:</label>
             <input type="text" name="username" placeholder="userN..." value={this.state.username} onChange={ e => this.handleChange(e)}/>
@@ -86,10 +87,11 @@ export default class Signup extends Component {
           
           <fieldset>
             <label>Password:</label>
-            <input type="password" name="password" value={this.state.password} onChange={ e => this.handleChange(e)} />
+            <input type="password" name="password" placeholder="********" value={this.state.password} onChange={ e => this.handleChange(e)} />
           </fieldset>
+          </div>
           
-          <input type="submit" value="Sign up" />
+          <input className="submit-signup" type="submit" value="Sign up" />
         </form>
 
         <h1>{this.state.error ? 'Error' : ''}</h1>

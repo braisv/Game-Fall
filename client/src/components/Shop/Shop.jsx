@@ -167,7 +167,7 @@ export default class Shop extends Component {
       })
     }
 
-    if (!games) return <h1>NO STOCK.</h1>
+    if (!games) return <div className="spinner"><div class="lds-hourglass"></div></div>
     return (
       <div className="shop-container flex-column">
         {/* <div className="flex">
