@@ -42,7 +42,7 @@ nav {
   height: 80px;
   align-content: flex-end;
   justify-content: flex-end;
-  background-color: tomato;
+  background-color: rgb(197, 102, 85);
   background-size: cover;
   background-position-y: -45px;
   background-position-x: -30px;
@@ -51,7 +51,7 @@ nav {
   color: whitesmoke;
 	font-size: 3rem;
   font-weight: bold;
-  filter: grayscale(40%);
+  /* filter: grayscale(40%); */
   -webkit-text-fill-color: rgb(255, 255, 255);
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: rgba(0, 0, 0, 0.6);
@@ -63,24 +63,24 @@ nav {
 }
 
 .nav-style .home {
-  background-color: rgb(101, 101, 207);
+  background-color: rgb(121, 121, 189);
   background-image: url("/images/navbar/home.png");
 }
 
 .nav-style .shop {
   background-position-y: -49px;
-  background-color: rgb(44, 182, 101);
+  background-color: rgb(108, 184, 139);
   background-image: url("/images/navbar/shop.png");
 }
 
 .nav-style .market {
   background-position-y: -48px;
-  background-color: rgb(140, 63, 175);
+  background-color: rgb(150, 98, 173);
   background-image: url("/images/navbar/market.png");
 }
 
 .nav-style .aboutus {
-  background-color: rgb(220, 230, 90);
+  background-color: rgb(204, 209, 127);
   background-image: url("/images/navbar/aboutus.png");
 }
 

@@ -3,6 +3,8 @@ import { withRouter, Link } from "react-router-dom";
 import './GameCard.scss'
 import axios from 'axios'
 import UserService from '../../utils/UserService'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 
 class GameCard extends Component {
@@ -13,6 +15,8 @@ class GameCard extends Component {
       loggedInUser: this.props.userInSession,
       game: '',
       message: null,
+      messageDelete: null,
+      messageCart: null,
       buttonSelected: null
     }
     this.userService = new UserService();
@@ -82,7 +86,8 @@ class GameCard extends Component {
       .then((updatedUser) => {
         this.setState({
           ...this.state,
-          loggedInUser: updatedUser
+          loggedInUser: updatedUser,
+          messageCart: "You just added this game to the Cart"
         })
 
       }, () => { console.log('NEW GAME IN CART', this.state.loggedInUser.chart) })
@@ -125,6 +130,21 @@ class GameCard extends Component {
         console.log(err);
       });
   };
+
+  alert() {
+    this.setState({
+      ...this.state,
+      messageDelete: "Are you sure you want to remove this game?"
+    })
+  }
+
+  hideMessage() {
+      this.setState({
+        ...this.state,
+        messageDelete: null,
+        messageCart: null
+      })
+  }
 
   removeGame() {
     axios
@@ -176,12 +196,22 @@ class GameCard extends Component {
       alert = (<div className="alert">{this.state.message}</div>)
     }
 
+    let alertDelete = null
+    if (!!this.state.messageDelete) {
+      alertDelete = (<div className="alertDelete flex-column">{this.state.messageDelete}<div><button onClick={() => this.hideMessage()}>MAYBE NOT</button><button className="redButton" onClick={() => this.removeGame()}>DELETE</button></div></div>)
+    }
+
+    let alertCart = null
+    if (!!this.state.messageCart) {
+      alertCart = (<div className="alertCart flex-column">{this.state.messageCart}<div><button onClick={() => this.hideMessage()}>Keep Buying</button><Link className='link' to={`/cart`}><button>Go to Cart</button></Link></div></div>)
+    }
+
     let editButtons = null
     if (this.state.loggedInUser.role === "ADMIN") {
       editButtons = (
       <div>
-        <Link className='link' to={`/edit/${this.state.game._id}`}><div className="icon-edit flex">E</div></Link>
-        <div onClick={() => this.removeGame()} className="icon-delete flex">X</div>
+        <Link className='link' to={`/edit/${this.state.game._id}`}><div className="icon-edit flex"><FontAwesomeIcon size="xs" icon={faEdit} /></div></Link>
+        <div onClick={() => this.alert()} className="icon-delete flex"><FontAwesomeIcon size="xs" icon={faTrashAlt} /></div>
         </div>
         )
     }
@@ -189,6 +219,7 @@ class GameCard extends Component {
     return (
       <div className="container-card" >
         {editButtons}
+        {alertDelete}
         <div className="images">
           <img src={`https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${this.state.game.image}`} alt="Cover game" />
         </div>
@@ -213,7 +244,7 @@ class GameCard extends Component {
           <div className="buttons">
             <button onClick={() => this.toggleChart()} className="add">Add to Cart</button>
             <button onClick={() => this.toggleButton()} className={this.state.buttonSelected ? 'like is-wish' : 'like is-blue'}><span>♥</span></button>
-            {alert}
+            {alert}{alertCart}
           </div>
         </div>
       </div>

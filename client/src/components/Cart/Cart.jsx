@@ -19,7 +19,9 @@ class Cart extends Component {
     this.state = {
       loggedInUser: this.props.userInSession,
       games: '',
-      finalPrice: ''
+      finalPrice: '',
+      messageSuccess: null,
+      messageCancel: null,
     }
     this.userService = new UserService();
   }
@@ -91,12 +93,43 @@ class Cart extends Component {
 
   render() {
 
-    const onSuccess = (payment) =>
+    const onSuccess = (payment) => {
+      this.setState({
+        ...this.state,
+        messageSuccess: "Thank you for your money!",
+        games: "",
+        finalPrice: 0
+      })
+      
+      setTimeout(() => {
+        this.setState({
+          ...this.state,
+          messageSuccess: null
+        })
+      }, 6000)
+      console.log(this.state.messageSuccess)
       console.log('Successful payment!', payment);
+    }
+  
+
+
     const onError = (error) =>
       console.log('Erroneous payment OR failed to load script!', error);
-    const onCancel = (data) =>
+    const onCancel = (data) => {
+      this.setState({
+        ...this.state,
+        messageCancel: "Something went wrong!",
+      })
+      
+      setTimeout(() => {
+        this.setState({
+          ...this.state,
+          messageCancel: null
+        })
+      }, 6000)
+
       console.log('Cancelled payment!', data);
+    }
 
     let button = {
       style: {
@@ -105,7 +138,15 @@ class Cart extends Component {
       }
     }
 
+    let alert = null
+    if (!!this.state.messageSuccess) {
+      alert = (<div className="alertSuccess">{this.state.messageSuccess}</div>)
+    }
 
+    let alertCancel = null
+    if (!!this.state.messageCancel) {
+      alertCancel = (<div className="alertSuccess">{this.state.messageCancel}</div>)
+    }
 
 
     let cartItems = null
@@ -135,6 +176,7 @@ class Cart extends Component {
 
     return (
       <div className='container-chart flex-column'>
+        {alert}{alertCancel}
         <div className="chart flex">
           <div className="col-1" />
           <div className="col-2">

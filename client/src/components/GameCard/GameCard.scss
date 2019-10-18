@@ -209,12 +209,13 @@ $red: rgb(148, 29, 29);
 
 .alert {
   position: absolute;
+  z-index: 3;
   background-color: rgb(60, 60, 82);
   border: 15px solid white;
   box-shadow: 0 0 10px black;
   padding: 60px;
   font-size: 2.4rem;
-  top: 45%;
+  bottom: 23%;
   left: 0;
   animation: 3.5s fadeInUpBig forwards;
 
@@ -278,5 +279,74 @@ $red: rgb(148, 29, 29);
   top: 3%;
   cursor: pointer;
 }
+
+.alertDelete {
+  position: absolute;
+  z-index: 3;
+  background-color: rgb(60, 60, 82);
+  border: 15px solid white;
+  box-shadow: 0 0 10px black;
+  padding: 60px;
+  font-size: 2.4rem;
+  top: 20%;
+  left: 20%;
+  animation: 0.5s fadeInUpBig2 forwards;
+
+  @keyframes fadeInUpBig2 {
+    0% {
+      opacity: 0;
+      -webkit-transform: translate3d(0, 2000px, 0);
+      transform: translate3d(0, 2000px, 0);
+    }
+  
+    100% {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+}
+
+.alertDelete button {
+  margin: 20px;
+  margin-bottom: 0;
+}
+
+.redButton {
+  background: red;
+}
+
+.alertCart {
+  position: absolute;
+  z-index: 3;
+  background-color: rgb(60, 60, 82);
+  border: 15px solid white;
+  box-shadow: 0 0 10px black;
+  padding: 60px;
+  font-size: 2rem;
+  bottom: 23%;
+  left: 0;
+  animation: 0.5s fadeInUpBig2 forwards;
+
+  @keyframes fadeInUpBig2 {
+    0% {
+      opacity: 0;
+      -webkit-transform: translate3d(0, 2000px, 0);
+      transform: translate3d(0, 2000px, 0);
+    }
+  
+    100% {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+}
+
+.alertCart button {
+  margin: 20px;
+  margin-bottom: 0;
+}
+
 
 

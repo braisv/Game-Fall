@@ -50,7 +50,8 @@ export default class Navbar extends Component {
     } else {
       return (
         <div>
-          <nav className="nav-style">
+          <nav className="nav-style header">
+          <img src="./images/Logotipe.png" alt="Logotipe"/>
             <ul className='flex'>
               <li>
                 <Link className='link' to="/signup"><div className="nav-box flex signup">Sign Up</div></Link>

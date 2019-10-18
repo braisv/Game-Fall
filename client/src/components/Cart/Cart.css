@@ -92,3 +92,45 @@
 }
 
 
+.alertSuccess {
+  position: absolute;
+  z-index: 3;
+  background-color: rgb(60, 60, 82);
+  border: 15px solid white;
+  box-shadow: 0 0 10px black;
+  padding: 60px;
+  font-size: 2.4rem;
+  bottom: 60%;
+  left: 30%;
+  animation: 5.5s fadeInUpBig forwards;
+
+  @keyframes fadeInUpBig {
+    0% {
+      opacity: 0;
+      -webkit-transform: translate3d(0, 2000px, 0);
+      transform: translate3d(0, 2000px, 0);
+    }
+  
+    10% {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+
+    70% {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  
+    100% {
+      opacity: 0;
+      -webkit-transform: translate3d(0, 2000px, 0);
+      transform: translate3d(0, 2000px, 0);
+    }
+  }
+
+  
+}
+
+
