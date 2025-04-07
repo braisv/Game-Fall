@@ -64,38 +64,38 @@ nav {
 
 .nav-style .home {
   background-color: rgb(121, 121, 189);
-  background-image: url("/images/navbar/home.png");
+  background-image: url("/public/images/navbar/home.png");
 }
 
 .nav-style .shop {
   background-position-y: -49px;
   background-color: rgb(108, 184, 139);
-  background-image: url("/images/navbar/shop.png");
+  background-image: url("/public/images/navbar/shop.png");
 }
 
 .nav-style .market {
   background-position-y: -48px;
   background-color: rgb(150, 98, 173);
-  background-image: url("/images/navbar/market.png");
+  background-image: url("/public/images/navbar/market.png");
 }
 
 .nav-style .aboutus {
   background-color: rgb(204, 209, 127);
-  background-image: url("/images/navbar/aboutus.png");
+  background-image: url("/public/images/navbar/aboutus.png");
 }
 
 .nav-style .user {
-  background-image: url("/images/navbar/user.png");
+  background-image: url("/public/images/navbar/user.png");
 }
 
 .nav-style .signup {
   background-color: rgb(220, 230, 90);
-  background-image: url("/images/navbar/signup.png");
+  background-image: url("/public/images/navbar/signup.png");
 }
 
 .nav-style .login {
   background-color: rgb(90, 179, 230);
-  background-image: url("/images/navbar/login.png");
+  background-image: url("/public/images/navbar/login.png");
 }
 
 .searchBar {

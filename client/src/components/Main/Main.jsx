@@ -1,32 +1,32 @@
-import React, { Component } from 'react';
-import './Main.css'
-import GameList from '../GameList/GameList';
-
+import React, { Component } from "react";
+import "./Main.css";
+import GameList from "../GameList/GameList";
 
 export default class Main extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
-      search: ''
-    }
+      search: "",
+    };
   }
 
   updateSearch(e) {
-    let search = e.target.value
+    let search = e.target.value;
 
     this.setState({
       ...this.state,
-      search: search
-    })
+      search: search,
+    });
   }
 
   render() {
+    console.log("RENDER MAIN");
     return (
-      <div className='main flex'>
+      <div className="main flex">
         <div className="flex-colum">
           <GameList filterProducts={this.state.search}></GameList>
         </div>
-      </div>);
-
+      </div>
+    );
   }
 }

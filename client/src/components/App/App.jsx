@@ -1,12 +1,12 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import "./App.css";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Routes, Route, Navigate, BrowserRouter, Router } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import Signup from "../auth/Signup";
 import Login from "../auth/Login";
 import AuthService from "../auth/AuthService";
 import Main from "../Main/Main";
-import NewGame from "../NewGame/NewGame"
+import NewGame from "../NewGame/NewGame";
 import GameCard from "../GameCard/GameCard";
 import Cart from "../Cart/Cart";
 import Shop from "../Shop/Shop";
@@ -14,92 +14,103 @@ import Profile from "../Profile/Profile";
 import EditGame from "../EditGame/EditGame";
 import AboutUs from "../AboutUs/AboutUs";
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { loggedInUser: null };
-    this.service = new AuthService();
-    this.fetchUser()
-  }
+const service = new AuthService();
 
-  getUser = userObj => {
-    this.setState({
-      loggedInUser: userObj,
-    });
-  };
+const App = () => {
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
-  logout = () => {
-    this.service.logout()
-    .then(() => {
-      this.setState({ loggedInUser: null });
-    })
-    .catch(err=>console.log(err));
-  };
+  // console.log("APP COMPONENT");
 
-  fetchUser() {
-    return this.service
-      .loggedin()
-      .then(response => {
-        this.setState({
-          loggedInUser: response,
+  useEffect(() => {
+    const fetchUser = () => {
+      return service
+        .loggedin()
+        .then((response) => {
+          setLoggedInUser(response);
+        })
+        .catch((err) => {
+          setLoggedInUser(false);
         });
+    };
+
+    fetchUser();
+  }, []);
+
+  const getUser = (userObj) => {
+    setLoggedInUser(userObj);
+  };
+
+  const logout = () => {
+    service
+      .logout()
+      .then(() => {
+        setLoggedInUser(null);
       })
-      .catch(err => {
-        this.setState({
-          loggedInUser: false,
-        });
-      });
-  }
+      .catch((err) => console.log(err));
+  };
 
-
-
-
-  render() {
-    if (this.state.loggedInUser) {
-      return (
-        <React.Fragment>
-          <Redirect to="/home" />
+  if (loggedInUser) {
+    return (
+      <React.Fragment>
+        <Router>
+          <Navigate to="/home" />
 
           <div className="App flex">
             <header className="App-header">
-              <Navbar userInSession={this.state.loggedInUser} logout={this.logout} />
+              <Navbar userInSession={loggedInUser} logout={logout} />
             </header>
           </div>
-          <Switch>
-          <Route exact path="/home" component={Main} />
-          <Route exact path="/edit/:id" render={(props) => {
-            return <EditGame userInSession={this.state.loggedInUser} gameID={props.match.params.id} />}
-          } />
-          <Route exact path="/shop" render={() => <Shop userInSession={this.state.loggedInUser} />}  />
-          <Route exact path={`/${this.state.loggedInUser.username}`} render={() => <Profile userInSession={this.state.loggedInUser} />}  />
-          <Route exact path="/addgame" component={NewGame} />
-          <Route exact path="/aboutus" component={AboutUs} />
-          <Route exact path="/game/:id" render={(props) => {
-            return <GameCard userInSession={this.state.loggedInUser} gameID={props.match.params.id} />}
-          } />
-          <Route exact path="/cart" render={(props) => {
-            return <Cart userInSession={this.state.loggedInUser} gameID={props.match.params.id} />}
-          } />
-        </Switch>
-        </React.Fragment>
-      );
-    } else {
-      return (
-        <React.Fragment>
-          <Redirect to="/login" />
+          <Routes>
+            <Route exact path="/home" element={Main} />
+            <Route
+              exact
+              path="/edit/:id"
+              render={(props) => {
+                return <EditGame userInSession={loggedInUser} gameID={props.match.params.id} />;
+              }}
+            />
+            <Route exact path="/shop" render={() => <Shop userInSession={loggedInUser} />} />
+            <Route exact path={`/${loggedInUser.username}`} render={() => <Profile userInSession={loggedInUser} />} />
+            <Route exact path="/addgame" element={NewGame} />
+            <Route exact path="/aboutus" element={AboutUs} />
+            <Route
+              exact
+              path="/game/:id"
+              render={(props) => {
+                return <GameCard userInSession={loggedInUser} gameID={props.match.params.id} />;
+              }}
+            />
+            <Route
+              exact
+              path="/cart"
+              render={(props) => {
+                return <Cart userInSession={loggedInUser} gameID={props.match.params.id} />;
+              }}
+            />
+          </Routes>
+        </Router>
+      </React.Fragment>
+    );
+  } else {
+    return (
+      <React.Fragment>
+        <Router>
+          <Navigate to="/login" />
 
           <div className="App flex">
             <header className="App-header">
-              <Navbar userInSession={this.state.loggedInUser} logout={this.logout} />
-              <Switch>
-                <Route exact path="/signup" render={() => <Signup getUser={this.getUser} />} />
-                <Route exact path="/login" render={() => <Login getUser={this.getUser} />} />
-                {/* <Route exact path="/test" component={Appoteosis} /> */}
-              </Switch>
+              <Navbar userInSession={loggedInUser} logout={logout} />
+              <Routes>
+                <Route exact path="/signup" render={() => <Signup getUser={getUser} />} />
+                <Route exact path="/login" render={() => <Login getUser={getUser} />} />
+                {/* <Route exact path="/test" element={Appoteosis} /> */}
+              </Routes>
             </header>
           </div>
-        </React.Fragment>
-      );
-    }
+        </Router>
+      </React.Fragment>
+    );
   }
-}
+};
+
+export default App;
