@@ -1,67 +1,64 @@
 // auth/Signup.js
-import React, { Component } from 'react';
-import AuthService from './AuthService'
+import React, { Component, useState } from "react";
+import AuthService from "./AuthService";
+import { useAuth } from "../../hooks/useAuth";
 
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { username: '', password: '' };
-    this.service = new AuthService();
-  }
+const Login = () => {
+  console.log("RENDER LOGIN");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const { login } = useAuth();
+  const service = new AuthService();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    console.log("** HANDLE LOGIN", { e, username, password });
+    // Here you would usually send a request to your backend to authenticate the user
+    // For the sake of this example, we're using a mock authentication
+    if (!username || !password) {
+      // Replace with actual authentication logic
+      alert("Invalid username or password");
+      setError(true);
+    } else {
+      await service.login(username, password);
+    }
+  };
 
-  handleFormSubmit = (event) => {
-    event.preventDefault();
-    const username = this.state.username;
-    const password = this.state.password;
+  const handleUsername = (e) => {
+    e.preventDefault();
+    console.log("** HANDLE USERNAME", { e });
+    setUsername(e.target.value || "");
+  };
 
-    this.service.login(username, password)
-      .then(response => {
-        this.setState({
-          username: username,
-          password: password,
-          error: false
-        });
+  const handlePassword = (e) => {
+    e.preventDefault();
+    e.preventDefault();
+    console.log("** HANDLE PASSWORD", { e });
+    setPassword(e.target.value || "");
+  };
 
-        this.props.getUser(response)
-      })
-      .catch(error => {
-        this.setState({
-          username: username,
-          password: password,
-          error: true
-        });
-      })
-  }
+  return (
+    <div className="container-signup flex-column">
+      <h3>Welcome back!</h3>
 
-  handleChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-  }
+      <form className="signup-form" onSubmit={handleLogin}>
+        <div className="flex">
+          <fieldset>
+            <label>Username:</label>
+            <input type="text" name="username" value={username} onChange={handleUsername} />
+          </fieldset>
 
-  render() {
+          <fieldset>
+            <label>Password:</label>
+            <input type="password" name="password" value={password} onChange={handlePassword} />
+          </fieldset>
+        </div>
+        <input className="submit-signup" type="submit" value="Log in" />
+      </form>
 
-    return (
-      <div className='container-signup flex-column'>
-        <h3>Welcome back!</h3>
+      <h1>{error ? "Error" : ""}</h1>
+    </div>
+  );
+};
 
-        <form className="signup-form" onSubmit={this.handleFormSubmit}>
-          <div className="flex">
-            <fieldset>
-              <label>Username:</label>
-              <input type="text" name="username" value={this.state.username} onChange={e => this.handleChange(e)} />
-            </fieldset>
-
-            <fieldset>
-              <label>Password:</label>
-              <input type="password" name="password" value={this.state.password} onChange={e => this.handleChange(e)} />
-            </fieldset>
-
-          </div>
-          <input className="submit-signup" type="submit" value="Log in" />
-        </form>
-
-        <h1>{this.state.error ? 'Error' : ''}</h1>
-      </div>
-    )
-  }
-}
+export default Login;
