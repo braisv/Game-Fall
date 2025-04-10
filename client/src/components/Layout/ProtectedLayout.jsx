@@ -4,13 +4,21 @@ import { useAuth } from "../../hooks/useAuth";
 import Navbar from "../Navbar/Navbar";
 
 export const ProtectedLayout = () => {
-  console.log("RENDER PROTECTED LAYOUT");
   const { user } = useAuth();
   console.log({ user });
   const outlet = useOutlet();
 
   if (!user) {
-    return <Navigate to="/login" />;
+    return (
+      <div className="layout">
+        <div className="App flex">
+          <header className="App-header">
+            <Navbar />
+          </header>
+        </div>
+        <Navigate to="/login" />;
+      </div>
+    );
   }
   return (
     <div className="layout">
