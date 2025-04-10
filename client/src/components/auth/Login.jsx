@@ -9,7 +9,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const { login } = useAuth();
-  const service = new AuthService();
   const handleLogin = async (e) => {
     e.preventDefault();
     console.log("** HANDLE LOGIN", { e, username, password });
@@ -20,7 +19,8 @@ const Login = () => {
       alert("Invalid username or password");
       setError(true);
     } else {
-      await service.login(username, password);
+      console.log("call the auth hook");
+      await login({ username, password });
     }
   };
 

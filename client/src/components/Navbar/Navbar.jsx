@@ -1,15 +1,9 @@
 import { Link } from "react-router-dom";
-import AuthService from "../auth/AuthService";
-import "./Navbar.css";
 import { useAuth } from "../../hooks/useAuth";
+import "./Navbar.css";
 
 const Navbar = () => {
-  const service = new AuthService();
-  const { user } = useAuth();
-
-  const handleLogout = () => {
-    service.logout();
-  };
+  const { user, logout } = useAuth();
 
   if (user) {
     return (
@@ -34,7 +28,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <a className="link" href="/" onClick={handleLogout}>
+                  <a className="link" href="/" onClick={logout}>
                     Logout
                   </a>
                 </li>

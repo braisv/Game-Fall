@@ -16,13 +16,7 @@ const sendApiCall = async (endpoint, data) => {
       headers,
       data,
     });
-    console.log({ response });
-    if ((response.status = 200)) {
-      console.log("SUCCESSFULL CALL: ", { status: response.status });
-    } else {
-      console.log("FAILED CALL: ", { response });
-    }
-    return response.data;
+    return response;
   } catch (error) {
     throw new Error(error);
   }

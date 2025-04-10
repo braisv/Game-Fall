@@ -25,7 +25,7 @@ export default class GameList extends Component {
     console.log("COMPONENT DID MOUNT");
     console.log("API CALL: ", `${process.env.REACT_APP_API_URL}/games`);
     axios
-      .get(`${process.env.REACT_APP_API_URL}/games`)
+      .get(`${process.env.REACT_APP_API_URL}/api/games`)
       .then(({ data }) => {
         this.setState({ games: data });
       })

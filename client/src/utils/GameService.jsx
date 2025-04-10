@@ -9,10 +9,26 @@ export default class GameService {
   }
 
   search = (query) => {
-    return this.service.get(`/search?query=${query}`, { query }).then((response) => response.data);
+    return this.service.get(`/search?query=${query}`, { query }).then((response) => {
+      const { data, status } = response.data || {};
+
+      if (status === "success") {
+        return data;
+      }
+
+      return [];
+    });
   };
 
   game = (id) => {
-    return this.service.get(`/game/${id}`).then((response) => response.data[0]);
+    return this.service.get(`/game/${id}`).then((response) => {
+      const { data, status } = response.data || {};
+      console.log({ data, status });
+      if (status === "success") {
+        return data;
+      }
+
+      return undefined;
+    });
   };
 }

@@ -9,13 +9,15 @@ const path = require("path");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const cors = require("cors");
+const passport = require("passport");
 const logger = require("morgan");
 const authRouter = require("./routes/auth");
 const gameRouter = require("./routes/games");
-const dbRouter = require("./routes/db");
+const igdbRouter = require("./routes/igdbApi");
 const userRouter = require("./routes/user");
 const { handleMongoError, errorHandler } = require("./middlewares/errorHandler");
 const { NotFoundError } = require("./utils/AppError");
+require("./services/passport");
 
 const { MONGO_URL } = process.env;
 mongoose.Promise = Promise;
@@ -36,10 +38,10 @@ const app = express();
 
 // Middleware Setup
 app.use(logger("dev"));
-var whitelist = ["http://localhost:3000", "http://localhost:5000", "https://gamesfall.herokuapp.com"];
-var corsOptions = {
+const whitelist = ["http://localhost:3000", "http://localhost:5000", "https://gamesfall.herokuapp.com"];
+const corsOptions = {
   origin: function (origin, callback) {
-    var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+    const originIsWhitelisted = whitelist.indexOf(origin) !== -1;
     callback(null, originIsWhitelisted);
   },
   credentials: true,
@@ -67,15 +69,43 @@ app.use(
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
   })
 );
-require("./passport")(app);
 
+app.use(passport.initialize());
+app.use(passport.authenticate("session"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 
 app.locals.title = "Backend Games Fall";
 
+let count = 1;
+
+printData = (req, res, next) => {
+  console.log("\n==============================");
+  console.log(`------------>  ${count++}`);
+
+  console.log(`req.body.username -------> ${req.body.username}`);
+  console.log(`req.body.password -------> ${req.body.password}`);
+
+  console.log(`\n req.session.passport -------> `);
+  console.log(req.session.passport);
+
+  console.log(`\n req.user -------> `);
+  console.log(req.user);
+
+  console.log("\n Session and Cookie");
+  console.log(`req.session.id -------> ${req.session.id}`);
+  console.log(`req.session.cookie -------> `);
+  console.log(req.session.cookie);
+
+  console.log("===========================================\n");
+
+  next();
+};
+
+app.use(printData);
+
 app.use("/api/auth", authRouter);
-app.use("/api/db", dbRouter);
+app.use("/api/db", igdbRouter);
 app.use("/api/games", gameRouter);
 app.use("/api/user", userRouter);
 
@@ -88,14 +118,6 @@ app.all("*", (req, res, next) => {
 });
 
 app.use(errorHandler);
-
-process.on("unhandledRejection", (err) => {
-  console.log("UNHANDLED REJECTION! 💥 Shutting down...");
-  console.log(err.name, err.message);
-  server.close(() => {
-    process.exit(1);
-  });
-});
 
 app.use((err, req, res, next) => {
   if (err.name === "MongoError" || err.name === "ValidationError") {
