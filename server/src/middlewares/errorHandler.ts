@@ -1,4 +1,7 @@
+import { NextFunction, Response, Request } from "express";
 import winston from "winston";
+import { AppError, MongoError } from "../utils/types";
+import { BaseError } from "../utils/AppError";
 
 const logger = winston.createLogger({
   level: "error",
@@ -11,7 +14,7 @@ const logger = winston.createLogger({
   ],
 });
 
-const errorHandler = (err, req, res, next) => {
+const errorHandler = (err: AppError, req: Request, res: Response, next: NextFunction) => {
   console.log("ERROR HANDLER", { nodeEnv: process.env.NODE_ENV });
   logger.error("LOGGER Error 💥", {
     error: err,
@@ -44,17 +47,17 @@ const errorHandler = (err, req, res, next) => {
   }
 };
 
-const catchAsync = (fn) => {
+const catchAsync = (fn: (req: Request, res: Response, next: NextFunction) => Promise<void>) => {
   console.log("CATCh");
-  return (req, res, next) => {
-    fn(req, res, next).catch((error) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    fn(req, res, next).catch((error: AppError) => {
       console.log("CATCH ASYNC ERROR", error);
       next(error);
     });
   };
 };
 
-const handleMongoError = (error) => {
+const handleMongoError = (error: MongoError) => {
   console.log("HANDLE MONGO ERROR");
   if (error.name === "CastError") {
     return new BaseError(`Invalid ${error.path}: ${error.value}`, 400);
@@ -66,7 +69,7 @@ const handleMongoError = (error) => {
   }
 
   if (error.name === "ValidationError") {
-    const errors = Object.values(error.errors).map((err) => err.message);
+    const errors = Object.values(error.errors).map(err => err.message);
     return new BaseError(`Invalid input data: ${errors.join(". ")}`, 400);
   }
 
