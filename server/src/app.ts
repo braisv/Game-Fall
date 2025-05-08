@@ -15,7 +15,7 @@ import authRouter from "./routes/auth";
 import gameRouter from "./routes/games.js";
 import igdbRouter from "./routes/igdbApi.js";
 import userRouter from "./routes/user.js";
-import { handleMongoError, errorHandler } from "./middlewares/errorHandler.js";
+import { errorHandler } from "./middlewares/errorHandler.js";
 import { NotFoundError } from "./utils/AppError.js";
 import "./services/passport.js";
 

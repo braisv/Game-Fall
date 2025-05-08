@@ -1,8 +1,5 @@
 import mongoose, {Schema, Document} from 'mongoose';
-
-export interface IGame extends Document {
-  _id: string;
-}
+import { IGame } from './game.model';
 
 export enum Role {
   user = 'user',
@@ -10,24 +7,24 @@ export enum Role {
 }
 
 export interface Address extends Document {
-  name: String;
-  street: String;
-  buildingNumber: Number;
-  floor: Number;
-  zipCode: Number;
-  country: String;
-  city: String;
+  name: string;
+  street: string;
+  buildingNumber: number;
+  floor: number;
+  zipCode: number;
+  country: string;
+  city: string;
 }
 
 export interface IUser extends Document {
-  username: String;
-  password: String;
-  name: String;
-  surname: String;
+  username: string;
+  password: string;
+  name: string;
+  surname: string;
   role: Role;
-  image: String;
-  email: String;
-  phone: String;
+  image: string;
+  email: string;
+  phone: string;
   address: Address;
   chart: IGame['_id'][];
   purchases: IGame['_id'][];

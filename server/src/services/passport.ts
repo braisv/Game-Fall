@@ -1,9 +1,7 @@
-import { IUser } from "../models/user.model";
-
-const passport = require('passport');
-const bcrypt = require('bcrypt');
-const User = require('../models/user.model');
-const LocalStrategy = require('passport-local').Strategy;
+import bcrypt from 'bcrypt';
+import passport from "passport";
+import { Strategy } from 'passport-local';
+import User, { IUser } from "../models/user.model";
 
 const validateExistingUser = async (user: IUser, password: string) => {
   if (!user) {
@@ -13,7 +11,7 @@ const validateExistingUser = async (user: IUser, password: string) => {
   return await bcrypt.compare(`${password}`, user.password);
 };
 
-const localStrategy = new LocalStrategy(function verify(
+const localStrategy = new Strategy(function verify(
   username: string,
   password: string,
   cb: (...args: any) => void,
@@ -36,9 +34,12 @@ const localStrategy = new LocalStrategy(function verify(
   });
 });
 
-const serializeUser = (user: IUser, cb: (...args: any) => void) => {
+const serializeUser = (user: any, done: (err: any, id?: any) => void) => {
   process.nextTick(() => {
-    cb(null, {id: user.id, username: user.username});
+    done(null, {
+      id: user.id, 
+      username: user.username
+    });
   });
 };
 
