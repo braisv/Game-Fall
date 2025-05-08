@@ -1,7 +1,7 @@
 import { NextFunction, Response, Request } from "express";
 import winston from "winston";
-import { AppError, MongoError } from "../utils/types";
-import { BaseError } from "../utils/AppError";
+import { AppError, MongoError, StatusCode, StatusError } from "../utils/types";
+import { BaseError, NotFoundError } from "../utils/AppError";
 
 const logger = winston.createLogger({
   level: "error",
@@ -14,12 +14,35 @@ const logger = winston.createLogger({
   ],
 });
 
+const handleMongoError = (error: MongoError) => {
+  console.log("HANDLE MONGO ERROR");
+  if (error.name === "CastError") {
+    return new NotFoundError(`Invalid ${error.path}: ${error.value}`);
+  }
+
+  if (error.code === 11000) {
+    const field = Object.keys(error.keyValue)[0];
+    return new BaseError(`Duplicate field value: ${field}`, StatusCode.badRequest);
+  }
+
+  if (error.name === "ValidationError") {
+    const errors = Object.values(error.errors).map(err => err.message);
+    return new BaseError(`Invalid input data: ${errors.join(". ")}`, StatusCode.badRequest);
+  }
+
+  return error;
+};
+
 const errorHandler = (err: AppError, req: Request, res: Response, next: NextFunction) => {
   console.log("ERROR HANDLER", { nodeEnv: process.env.NODE_ENV });
   logger.error("LOGGER Error 💥", {
     error: err,
     stack: err.stack,
   });
+
+  if (err.name === "MongoError" || err.name === "ValidationError") {
+    err = handleMongoError(err as MongoError);
+  }
 
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "error";
@@ -39,8 +62,8 @@ const errorHandler = (err: AppError, req: Request, res: Response, next: NextFunc
       });
     } else {
       console.error("ERROR", err);
-      res.status(500).json({
-        status: "error",
+      res.status(StatusCode.serverError).json({
+        status: StatusError.error,
         message: "Something went wrong!",
       });
     }
@@ -57,24 +80,6 @@ const catchAsync = (fn: (req: Request, res: Response, next: NextFunction) => Pro
   };
 };
 
-const handleMongoError = (error: MongoError) => {
-  console.log("HANDLE MONGO ERROR");
-  if (error.name === "CastError") {
-    return new BaseError(`Invalid ${error.path}: ${error.value}`, 400);
-  }
-
-  if (error.code === 11000) {
-    const field = Object.keys(error.keyValue)[0];
-    return new BaseError(`Duplicate field value: ${field}`, 400);
-  }
-
-  if (error.name === "ValidationError") {
-    const errors = Object.values(error.errors).map(err => err.message);
-    return new BaseError(`Invalid input data: ${errors.join(". ")}`, 400);
-  }
-
-  return error;
-};
 
 export {
   errorHandler,

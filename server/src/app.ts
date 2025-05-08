@@ -11,7 +11,7 @@ import { name as app_name} from "../package.json";
 import cors from "cors";
 import passport from "passport";
 import logger from "morgan";
-import authRouter from "./routes/auth.js;
+import authRouter from "./routes/auth";
 import gameRouter from "./routes/games.js";
 import igdbRouter from "./routes/igdbApi.js";
 import userRouter from "./routes/user.js";
@@ -41,11 +41,11 @@ app.use(logger("dev"));
 const whitelist = ["http://localhost:3000", "http://localhost:5000", "https://gamesfall.herokuapp.com"];
 const corsOptions = {
   origin: function (origin, callback) {
-    const originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+    const originIsWhitelisted = whitelist.indexOf(origin as string) !== -1;
     callback(null, originIsWhitelisted);
   },
   credentials: true,
-};
+} as cors.CorsOptions;
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(
@@ -85,12 +85,5 @@ app.all("*", (req, res, next) => {
 });
 
 app.use(errorHandler);
-
-app.use((err, req, res, next) => {
-  if (err.name === "MongoError" || err.name === "ValidationError") {
-    err = handleMongoError(err);
-  }
-  errorHandler(err, req, res, next);
-});
 
 export default app;

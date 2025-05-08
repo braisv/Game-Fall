@@ -1,9 +1,12 @@
 import bcrypt from 'bcrypt';
 import User from '../../models/user.model';
-import {catchAsync} from '../../middlewares/errorHandler';
-import {ValidationError} from '../../utils/AppError';
+import { NextFunction, Request, Response } from 'express';
+import { catchAsync } from '../../middlewares/errorHandler';
+import { ValidationError } from '../../utils/AppError';
+import { StatusCode } from '../../utils/types';
+import { StatusRequestSuccess } from '../../utils/variables';
 
-export const register = catchAsync(async (req, res, next) => {
+export const register = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const {username, password, ...userRequested} = req.body;
 
   if (!username || !password) {
@@ -13,7 +16,7 @@ export const register = catchAsync(async (req, res, next) => {
   const isExistinngUsername = await User.findOne({username});
 
   if (isExistinngUsername) {
-    throw new ValidationError('User already exists');
+    throw new ValidationError('Username already exists');
   }
 
   const salt = bcrypt.genSaltSync(10);
@@ -27,8 +30,8 @@ export const register = catchAsync(async (req, res, next) => {
 
   const {password: key, ...user} = userCreated;
 
-  res.status(201).json({
-    status: 'success',
+  res.status(StatusCode.created).json({
+    status: StatusRequestSuccess,
     data: user,
   });
 });

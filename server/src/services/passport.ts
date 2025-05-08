@@ -1,9 +1,11 @@
+import { IUser } from "../models/user.model";
+
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
 const LocalStrategy = require('passport-local').Strategy;
 
-const validateExistingUser = async (user, password) => {
+const validateExistingUser = async (user: IUser, password: string) => {
   if (!user) {
     return false;
   }
@@ -12,11 +14,11 @@ const validateExistingUser = async (user, password) => {
 };
 
 const localStrategy = new LocalStrategy(function verify(
-  username,
-  password,
-  cb,
+  username: string,
+  password: string,
+  cb: (...args: any) => void,
 ) {
-  User.findOne({username}, async function (err, obj) {
+  User.findOne({username}, async (err: Error, obj: IUser) => {
     if (err) {
       return cb(err);
     }
@@ -34,14 +36,14 @@ const localStrategy = new LocalStrategy(function verify(
   });
 });
 
-const serializeUser = (user, cb) => {
-  process.nextTick(function () {
+const serializeUser = (user: IUser, cb: (...args: any) => void) => {
+  process.nextTick(() => {
     cb(null, {id: user.id, username: user.username});
   });
 };
 
-const deserializeUser = (user, cb) => {
-  process.nextTick(function () {
+const deserializeUser = (user: IUser, cb: (...args: any) => void) => {
+  process.nextTick(() => {
     return cb(null, user);
   });
 };

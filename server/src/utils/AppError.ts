@@ -1,11 +1,11 @@
-import { AppError, StatusError } from "./types";
+import { AppError, StatusCode, StatusError } from "./types";
 
 class BaseError extends Error implements AppError  {
-  statusCode: number;
+  statusCode: StatusCode;
   status: keyof typeof StatusError;
   isOperational: boolean;
 
-  constructor(message: string, statusCode: number) {
+  constructor(message: string, statusCode: StatusCode) {
     super(message);
     this.statusCode = statusCode;
     this.status = `${statusCode}`.startsWith("4") ? StatusError.fail : StatusError.error;
@@ -17,19 +17,19 @@ class BaseError extends Error implements AppError  {
 
 class ValidationError extends BaseError {
   constructor(message: string) {
-    super(message, 400);
+    super(message, StatusCode.badRequest);
   }
 }
 
 class NotFoundError extends BaseError {
   constructor(message: string) {
-    super(message, 404);
+    super(message, StatusCode.notFound);
   }
 }
 
 class UnauthorizedError extends BaseError {
   constructor(message: string) {
-    super(message, 401);
+    super(message, StatusCode.unauthorized);
   }
 }
 
