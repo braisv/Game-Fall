@@ -1,5 +1,9 @@
-const axios = require("axios");
-require("dotenv").config();
+import axios from "axios";
+import dotenv from "dotenv"
+import { BaseError } from "../utils/AppError";
+import { StatusCode } from "../utils/types";
+
+dotenv.config();
 
 const api_url = "https://api.igdb.com/v4";
 const headers = {
@@ -8,7 +12,7 @@ const headers = {
   "Client-ID": process.env.TWITCH_APP_CLIENT_ID,
 };
 
-const sendApiCall = async (endpoint, data) => {
+const sendApiCall = async (endpoint: string, data: string) => {
   try {
     const response = await axios({
       url: `${api_url}/${endpoint}`,
@@ -17,20 +21,20 @@ const sendApiCall = async (endpoint, data) => {
       data,
     });
     return response;
-  } catch (error) {
-    throw new Error(error);
+  } catch (err) {
+    throw new BaseError('IGDB api failure', StatusCode.serverError);
   }
 };
 
 class APIHandler {
-  async searchGamesByName(gameName) {
+  async searchGamesByName(gameName: string) {
     const endpoint = "games";
     const data = `fields name,platforms.platform_type.name,platforms.platform_family.name,platforms.platform_logo.url,platforms.platform_logo.width,platforms.platform_logo.height,cover.url; search "${gameName}"; limit 50;`;
 
     return await sendApiCall(endpoint, data);
   }
 
-  async getGame(gameId) {
+  async getGame(gameId: string) {
     const endpoint = "games";
     const data = `fields name,release_dates.date,platforms.platform_type.name,platforms.platform_family.name,platforms.platform_logo.url,platforms.platform_logo.width,platforms.platform_logo.height,cover.url,genres.name,summary,screenshots.url,screenshots.height,screenshots.width,screenshots.image_id,keywords.name,collection.name,franchise.name,involved_companies.company.name,similar_games.name; where id=${gameId};`;
 
@@ -38,4 +42,4 @@ class APIHandler {
   }
 }
 
-module.exports = APIHandler;
+export default APIHandler;

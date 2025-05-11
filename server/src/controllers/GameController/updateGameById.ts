@@ -2,12 +2,12 @@ import { Request, Response, NextFunction } from "express";
 import { catchAsync } from "../../middlewares/errorHandler";
 import { IUser } from "../../models/user.model";
 import { NotFoundError, UnauthorizedError } from "../../utils/AppError";
-import { IGame } from "../../models/game.model";
+import Game, { IGame } from "../../models/game.model";
 import { StatusCode } from "../../utils/types";
 import { StatusRequestSuccess } from "../../utils/variables";
 
 
-export const updateGame = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+export const updateGameById = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const user = req.user as IUser
 
   if (user?.role === "admin") {
@@ -27,8 +27,13 @@ export const updateGame = catchAsync(async (req: Request, res: Response, next: N
     data: updatedGame,
   });
 });
-
-// gameRouter.post("/update", (req, res, next) => {
-//   const { amount, id } = req.body;
-//   Game.findByIdAndUpdate({ _id: id }, { $set: { amount: amount } }, { new: true }).then((theGame) => res.json(theGame));
-// });
+  
+  // gameRouter.post("/edit/:id", (req, res, next) => {
+  //   const { name, platform, release, genre, image, description, companies, screenshots, similars, category, stock, price } = req.body;
+  //   const gameID = req.params.id;
+  //   Game.findByIdAndUpdate(
+  //     { _id: gameID },
+  //     { $set: { name, platform, release, genre, image, description, companies, screenshots, similars, category, stock, price } },
+  //     { new: true }
+  //   ).then((theGame) => res.json(theGame));
+  // });

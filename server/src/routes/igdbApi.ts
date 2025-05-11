@@ -1,5 +1,5 @@
 import express from "express";
-import IgdbApiController from "../../controllers/IgdbApiController/index.js";
+import IgdbApiController from "../controllers/IgdbApiController";
 
 const igdbApiRouter = express.Router();
 
