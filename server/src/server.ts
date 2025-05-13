@@ -1,9 +1,9 @@
 import http from "http";
-import app from "@/app.ts";
+import app from "./app";
 
 const server = http.createServer(app);
 
-server.on("error", (error) => {
+server.on("error", (error: NodeJS.ErrnoException) => {
   if (error.syscall !== "listen") {
     throw error;
   }
@@ -24,7 +24,7 @@ server.listen(process.env.PORT, () => {
   console.log(`Listening on http://localhost:${process.env.PORT}`);
 });
 
-process.on("unhandledRejection", (err) => {
+process.on("unhandledRejection", (err: Error) => {
   console.log("UNHANDLED REJECTION! 💥 Shutting down...");
   console.log(err.name, err.message);
   console.log({ err });

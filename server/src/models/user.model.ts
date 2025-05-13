@@ -26,7 +26,7 @@ export interface IUser extends Document {
   email: string;
   phone: string;
   address: Address;
-  chart: IGame['_id'][];
+  cart: IGame['_id'][];
   purchases: IGame['_id'][];
   wishlist: IGame['_id'][];
 }
@@ -63,7 +63,7 @@ const UserSchema: Schema = new Schema(
       country: String,
       city: String,
     },
-    chart: [
+    cart: [
       {
         type: Schema.Types.ObjectId,
       },
