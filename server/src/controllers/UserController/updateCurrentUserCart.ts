@@ -1,28 +1,32 @@
-import { Request, Response, NextFunction } from "express";
-import { catchAsync } from "../../middlewares/errorHandler";
-import { UnauthorizedError, ValidationError } from "../../utils/AppError";
-import User, { IUser } from "../../models/user.model";
-import { StatusCode } from "../../utils/types";
-import { StatusRequestSuccess } from "../../utils/variables";
+import {Request, Response, NextFunction} from 'express';
+import {catchAsync} from '../../middlewares/errorHandler';
+import {UnauthorizedError, ValidationError} from '../../utils/AppError';
+import User, {IUser} from '../../models/user.model';
+import {StatusCode} from '../../utils/types';
+import {StatusRequestSuccess} from '../../utils/variables';
 
-export const updateCurrentUserCart = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const currentUser = req.user as IUser
+export const updateCurrentUserCart = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const currentUser = req.user as IUser;
 
     if (!currentUser) {
-        next(new UnauthorizedError('User is not logged in'))
+      next(new UnauthorizedError('User is not logged in'));
     }
-    
-    const { updatedUserObj } = req.body;
+
+    const {updatedUserObj} = req.body;
 
     if (!updatedUserObj) {
-        next(new ValidationError('No data provided'))
+      next(new ValidationError('No data provided'));
     }
-    
-    const userToUpdate = await User.findByIdAndUpdate(
-    currentUser._id,
-    {$push: {cart: updatedUserObj}},
-    {new: true},
-  )
 
-  res.status(StatusCode.ok).json({ status: StatusRequestSuccess, data: userToUpdate });
-});
+    const userToUpdate = await User.findByIdAndUpdate(
+      currentUser._id,
+      {$push: {cart: updatedUserObj}},
+      {new: true},
+    );
+
+    res
+      .status(StatusCode.ok)
+      .json({status: StatusRequestSuccess, data: userToUpdate});
+  },
+);

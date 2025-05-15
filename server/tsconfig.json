@@ -3,18 +3,24 @@
   "typeRoots": [
   "./typings",
   "./node_modules/@types/"
-],
+  ],
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
+    "module": "CommonJS",
     "target": "ES2020",
-    "module": "commonjs",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution":"Node",
     "resolveJsonModule": true,
+    "baseUrl": "src/",
+    "paths": {
+      "@/*": [
+        "*"
+      ],
+    },
   },
   "include": [
     "**/*.ts",
@@ -22,15 +28,5 @@
     "src/**/*.ts",
     "test/**/*.ts"
   ],
-  "exclude": ["node_modules"],
-  "ts-node": {
-    "esm": true,
-    "experimentalSpecifierResolution": "node",
-},
-  "baseUrl": "src/",
-  "paths": {
-    "@/*": [
-      "*"
-    ],
-  },
+  "exclude": ["node_modules", "dist/**/*"],
 }

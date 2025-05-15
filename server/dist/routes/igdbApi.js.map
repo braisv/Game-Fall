@@ -1,0 +1,1 @@
+{"version":3,"file":"igdbApi.js","sourceRoot":"","sources":["../../src/routes/igdbApi.ts"],"names":[],"mappings":";;;;;AAAA,sDAA8B;AAC9B,yFAAiE;AAEjE,MAAM,aAAa,GAAG,iBAAO,CAAC,MAAM,EAAE,CAAC;AAEvC,aAAa,CAAC,GAAG,CAAC,WAAW,EAAE,2BAAiB,CAAC,WAAW,CAAC,CAAC;AAC9D,aAAa,CAAC,GAAG,CAAC,SAAS,EAAE,2BAAiB,CAAC,iBAAiB,CAAC,CAAC;AAElE,kBAAe,aAAa,CAAC"}

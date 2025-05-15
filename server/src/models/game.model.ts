@@ -7,19 +7,19 @@ export enum Category {
 }
 
 export interface IGame extends Document {
-  name: string,
-  platform: string[],
-  release: string,
-  genre: string[],
-  image: string[],
-  description: string,
-  companies: string[],
-  screenshots: string[],
-  similars: string[],
-  price: number,
-  amount: number,
-  category: Category,
-  stock: number,
+  name: string;
+  platform: string[];
+  release: string;
+  genre: string[];
+  image: string[];
+  description: string;
+  companies: string[];
+  screenshots: string[];
+  similars: string[];
+  price: number;
+  amount: number;
+  category: Category;
+  stock: number;
 }
 
 const GameSchema = new Schema(

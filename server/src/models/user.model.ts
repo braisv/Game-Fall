@@ -1,5 +1,5 @@
 import mongoose, {Schema, Document} from 'mongoose';
-import { IGame } from './game.model';
+import {IGame} from './game.model';
 
 export enum Role {
   user = 'user',

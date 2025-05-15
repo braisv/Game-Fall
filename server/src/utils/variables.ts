@@ -1,1 +1,1 @@
-export const StatusRequestSuccess = "success";
+export const StatusRequestSuccess = 'success';

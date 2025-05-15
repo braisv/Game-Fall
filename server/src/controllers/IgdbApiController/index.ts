@@ -1,5 +1,5 @@
-import { getGameById } from "./getGameByName";
-import { searchGamesByName } from "./searchGamesByName";
+import {getGameById} from './getGameByName';
+import {searchGamesByName} from './searchGamesByName';
 
 export default {
   getGameById,

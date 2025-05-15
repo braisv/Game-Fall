@@ -1,28 +1,28 @@
-import dotenv from 'dotenv'
-import bodyParser from "body-parser";
-import cookieParser from "cookie-parser";
-import express from "express";
-import favicon from "serve-favicon";
-import mongoose from "mongoose";
-import path from "path";
-import session from "express-session";
+import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import express from 'express';
+import favicon from 'serve-favicon';
+import mongoose from 'mongoose';
+import path from 'path';
+import session from 'express-session';
 import connectMongo from 'connect-mongodb-session';
-import { name as app_name} from "../package.json";
-import cors from "cors";
-import passport from "passport";
-import logger from "morgan";
-import authRouter from "./routes/auth";
-import gameRouter from "./routes/games.js";
-import igdbRouter from "./routes/igdbApi.js";
-import userRouter from "./routes/user.js";
-import { errorHandler } from "./middlewares/errorHandler.js";
-import { NotFoundError } from "./utils/AppError.js";
-import "./services/passport.js";
+import {name as app_name} from '../package.json';
+import cors from 'cors';
+import passport from 'passport';
+import logger from 'morgan';
+import authRouter from './routes/auth';
+import gameRouter from './routes/games';
+import igdbRouter from './routes/igdbApi';
+import userRouter from './routes/user';
+import {errorHandler} from './middlewares/errorHandler';
+import {NotFoundError} from './utils/AppError';
+import './services/passport';
 
-dotenv.config()
+dotenv.config();
 const MongoStore = connectMongo(session);
 
-const { MONGO_URL } = process.env;
+const {MONGO_URL} = process.env;
 mongoose.Promise = Promise;
 mongoose
   .connect(MONGO_URL as string)
@@ -37,8 +37,12 @@ mongoose
 
 const app = express();
 
-app.use(logger("dev"));
-const whitelist = ["http://localhost:3000", "http://localhost:5000", "https://gamesfall.herokuapp.com"];
+app.use(logger('dev'));
+const whitelist = [
+  'http://localhost:3000',
+  'http://localhost:5000',
+  'https://gamesfall.herokuapp.com',
+];
 const corsOptions = {
   origin: function (origin, callback) {
     const originIsWhitelisted = whitelist.indexOf(origin as string) !== -1;
@@ -51,7 +55,7 @@ app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
     extended: false,
-  })
+  }),
 );
 app.use(cookieParser());
 
@@ -64,23 +68,28 @@ const express_session = session({
     maxAge: 2419200000,
     // store: new MongoStore({ mongooseConnection: mongoose.connection }),
   },
-  store: new MongoStore({ uri: MONGO_URL as string, collection: 'Game Fall Session Store Collection'}),
-})
+  store: new MongoStore({
+    uri: MONGO_URL as string,
+    collection: 'Game Fall Session Store Collection',
+  }),
+});
+
+const rootPath = process.cwd();
 
 app.use(express_session);
 app.use(passport.initialize());
-app.use(passport.authenticate("session"));
-app.use(express.static(path.join(__dirname, "public")));
-app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
+app.use(passport.authenticate('session'));
+app.use(express.static(path.join(rootPath, 'public')));
+app.use(favicon(path.join(rootPath, 'public', 'favicon.ico')));
 
 app.locals.title = `Backend ${app_name}`;
 
-app.use("/api/auth", authRouter);
-app.use("/api/db", igdbRouter);
-app.use("/api/games", gameRouter);
-app.use("/api/user", userRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/db', igdbRouter);
+app.use('/api/games', gameRouter);
+app.use('/api/user', userRouter);
 
-app.all("*", (req, res, next) => {
+app.all('*', (req, res, next) => {
   next(new NotFoundError(`Can't find ${req.originalUrl} on this server!`));
 });
 

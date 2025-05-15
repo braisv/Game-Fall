@@ -1,18 +1,17 @@
-import { getCurrentUserCart } from "./getCurrentUserCart";
-import { getCurrentUserWishList } from "./getCurrentUserWishList";
-import { getUserById } from "./getUserById";
-import { removeItemFromCurrentUserCart } from "./removeItemFromCurrentUserCart";
-import { removeItemFromCurrentUserWishList } from "./removeItemFromCurrentUserWishList";
-import { updateCurrentUserCart } from "./updateCurrentUserCart";
-import { updateCurrentUserWishList } from "./updateCurrentUserWishlist";
-
+import {updateCurrentUserWishList} from '@/controllers/UserController/updateCurrentUserWishList';
+import {getCurrentUserCart} from '@/controllers/UserController/getCurrentUserCart';
+import {getCurrentUserWishList} from '@/controllers/UserController/getCurrentUserWishList';
+import {getUserById} from '@/controllers/UserController/getUserById';
+import {removeItemFromCurrentUserCart} from '@/controllers/UserController/removeItemFromCurrentUserCart';
+import {removeItemFromCurrentUserWishList} from '@/controllers/UserController/removeItemFromCurrentUserWishList';
+import {updateCurrentUserCart} from '@/controllers/UserController/updateCurrentUserCart';
 
 export default {
-    getCurrentUserCart,
-    getCurrentUserWishList,
-    getUserById,
-    removeItemFromCurrentUserCart,
-    removeItemFromCurrentUserWishList,
-    updateCurrentUserCart,
-    updateCurrentUserWishList,
-}
+  getCurrentUserCart,
+  getCurrentUserWishList,
+  getUserById,
+  removeItemFromCurrentUserCart,
+  removeItemFromCurrentUserWishList,
+  updateCurrentUserCart,
+  updateCurrentUserWishList,
+};

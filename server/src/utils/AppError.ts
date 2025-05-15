@@ -1,6 +1,6 @@
-import { AppError, StatusCode, StatusError } from "./types";
+import {AppError, StatusCode, StatusError} from './types';
 
-class BaseError extends Error implements AppError  {
+class BaseError extends Error implements AppError {
   statusCode: StatusCode;
   status: keyof typeof StatusError;
   isOperational: boolean;
@@ -8,7 +8,9 @@ class BaseError extends Error implements AppError  {
   constructor(message: string, statusCode: StatusCode) {
     super(message);
     this.statusCode = statusCode;
-    this.status = `${statusCode}`.startsWith("4") ? StatusError.fail : StatusError.error;
+    this.status = `${statusCode}`.startsWith('4')
+      ? StatusError.fail
+      : StatusError.error;
     this.isOperational = true;
 
     Error.captureStackTrace(this, this.constructor);
@@ -33,9 +35,4 @@ class UnauthorizedError extends BaseError {
   }
 }
 
-export {
-  BaseError,
-  ValidationError,
-  NotFoundError,
-  UnauthorizedError,
-};
+export {BaseError, ValidationError, NotFoundError, UnauthorizedError};
